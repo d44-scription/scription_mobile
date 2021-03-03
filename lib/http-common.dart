@@ -16,18 +16,16 @@ class Http {
 
   Http._internal() {
     _dio = Dio(options);
-    _dio.interceptors.add(InterceptorsWrapper(
-        onRequest: (Options options) async {
-          // to prevent other request enter this interceptor.
-          _dio.interceptors.requestLock.lock();
-          // We use a new Dio (to avoid dead lock) instance to request token.
-          // Set the cookie in request headers
-          options.headers["cookie"] = aToken;
+    _dio.interceptors
+        .add(InterceptorsWrapper(onRequest: (Options options) async {
+      _dio.interceptors.requestLock.lock();
 
-          _dio.interceptors.requestLock.unlock();
-          return options;
-        }
-    ));
+      // Set the cookie in request headers
+      options.headers["cookie"] = aToken;
+
+      _dio.interceptors.requestLock.unlock();
+      return options;
+    }));
   }
 
   Future login() async {

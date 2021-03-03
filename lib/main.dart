@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/list-item.dart';
+import 'package:scription_mobile/notebooks.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,17 +45,15 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Http().login().then((value) => {});
+                Http().login().then((value) => {
+                      // Navigate to notebooks view
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Notebooks()))
+                    });
               },
               child: Text('Login'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Http().getNotebooks().then((value) => {});
-              },
-              child: Text('Get Notebooks'),
             ),
             ListItem(text: "Hello world")
           ],

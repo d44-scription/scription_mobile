@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scription_mobile/http-common.dart';
 
 class Notebooks extends StatelessWidget {
   @override
@@ -8,14 +9,23 @@ class Notebooks extends StatelessWidget {
         title: Text("Notebooks index"),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
-      ),
+          child: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // Navigate back to first route when tapped.
+              Navigator.pop(context);
+            },
+            child: Text('Go back!'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Http().getNotebooks().then((value) => {});
+            },
+            child: Text('Get Notebooks'),
+          ),
+        ],
+      )),
     );
   }
 }
