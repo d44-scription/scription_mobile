@@ -28,11 +28,11 @@ class Http {
     }));
   }
 
-  Future login() async {
+  Future login(email, password) async {
     final params = {
       "user": {
-        "email": "admin@example.com",
-        "password": "superSecret123!",
+        "email": email,
+        "password": password,
       }
     };
 

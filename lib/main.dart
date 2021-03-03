@@ -35,6 +35,9 @@ class _HomeState extends State<Home> {
   bool _isLoginDisabled = false;
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   void _login() {
     // If local validations pass...
     if (_formKey.currentState.validate()) {
@@ -43,14 +46,16 @@ class _HomeState extends State<Home> {
       });
 
       // If serverside validations pass...
-      Http().login().then((value) {
+      Http().login(emailController.text, passwordController.text).then((value) {
         // Navigate to notebooks view
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Notebooks()));
+      }).catchError((error) {
+        print(error.response.data["errors"]);
+      });
 
-        setState(() {
-          _isLoginDisabled = false;
-        });
+      setState(() {
+        _isLoginDisabled = false;
       });
     }
   }
@@ -68,6 +73,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             TextFormField(
+              controller: emailController,
               validator: (value) {
                 return value.isEmpty ? 'Please enter an email' : null;
               },
@@ -76,6 +82,7 @@ class _HomeState extends State<Home> {
                   icon: Icon(Icons.alternate_email)),
             ),
             TextFormField(
+              controller: passwordController,
               obscureText: true,
               enableSuggestions: false,
               autocorrect: false,
