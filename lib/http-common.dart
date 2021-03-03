@@ -55,7 +55,7 @@ class Http {
     return aToken != '';
   }
 
-  /// If we call this function without cookie then it will be forbidden
+  // GET notebooks index
   Future getNotebooks() async {
     final response = await _dio.get('/notebooks');
 
