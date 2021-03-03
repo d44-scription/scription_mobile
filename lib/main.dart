@@ -51,7 +51,8 @@ class _HomeState extends State<Home> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Notebooks()));
       }).catchError((error) {
-        print(error.response.data["errors"]);
+        final snackBar = SnackBar(content: Text(error.response.data["errors"]));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
 
       setState(() {
