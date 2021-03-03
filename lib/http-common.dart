@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-class ApiProvider {
+class Http {
   Dio _dio;
   String aToken = '';
 
@@ -10,14 +10,14 @@ class ApiProvider {
     receiveTimeout: 13000,
   );
 
-  static final ApiProvider _instance = ApiProvider._internal();
+  static final Http _instance = Http._internal();
 
-  factory ApiProvider() => _instance;
+  factory Http() => _instance;
 
-  ApiProvider._internal() {
+  Http._internal() {
     _dio = Dio(options);
     _dio.interceptors.add(InterceptorsWrapper(
-        onRequest:(Options options) async {
+        onRequest: (Options options) async {
           // to prevent other request enter this interceptor.
           _dio.interceptors.requestLock.lock();
           // We use a new Dio (to avoid dead lock) instance to request token.
@@ -49,6 +49,10 @@ class ApiProvider {
       // Save cookie to global variable to include it in future API calls
       aToken = authToken;
     }
+  }
+
+  bool isLoggedIn() {
+    return aToken != '';
   }
 
   /// If we call this function without cookie then it will be forbidden
