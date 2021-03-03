@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Default theme styles
         primarySwatch: Colors.orange,
-        scaffoldBackgroundColor: Colors.grey[700],
       ),
       home: Home(title: 'Scription'),
     );
@@ -34,21 +33,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool _isLoginDisabled = false;
+  final _formKey = GlobalKey<FormState>();
 
   void _login() {
-    setState(() {
-      _isLoginDisabled = true;
-    });
-
-    Http().login().then((value) {
-      // Navigate to notebooks view
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Notebooks()));
-
+    // If local validations pass...
+    if (_formKey.currentState.validate()) {
       setState(() {
-        _isLoginDisabled = false;
+        _isLoginDisabled = true;
       });
-    });
+
+      // If serverside validations pass...
+      Http().login().then((value) {
+        // Navigate to notebooks view
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Notebooks()));
+
+        setState(() {
+          _isLoginDisabled = false;
+        });
+      });
+    }
   }
 
   @override
@@ -59,16 +63,35 @@ class _HomeState extends State<Home> {
         title: Text(widget.title),
       ),
       body: Center(
+          child: Form(
+        key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
+            TextFormField(
+              validator: (value) {
+                return value.isEmpty ? 'Please enter an email' : null;
+              },
+              decoration: const InputDecoration(
+                  labelText: "Email Address",
+                  icon: Icon(Icons.alternate_email)),
+            ),
+            TextFormField(
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              validator: (value) {
+                return value.isEmpty ? 'Please enter a password' : null;
+              },
+              decoration: const InputDecoration(
+                  labelText: "Password", icon: Icon(Icons.lock)),
+            ),
             ElevatedButton(
               onPressed: _isLoginDisabled ? null : _login,
               child: Text('Login'),
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
