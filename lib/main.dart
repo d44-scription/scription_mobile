@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/http-common.dart';
-import 'package:scription_mobile/list-item.dart';
 import 'package:scription_mobile/notebooks.dart';
 
 void main() => runApp(MyApp());
@@ -34,6 +33,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool _isLoginDisabled = false;
+
+  void _login() {
+    setState(() {
+      _isLoginDisabled = true;
+    });
+
+    Http().login().then((value) {
+      // Navigate to notebooks view
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Notebooks()));
+
+      setState(() {
+        _isLoginDisabled = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
@@ -46,16 +63,9 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {
-                Http().login().then((value) => {
-                      // Navigate to notebooks view
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Notebooks()))
-                    });
-              },
+              onPressed: _isLoginDisabled ? null : _login,
               child: Text('Login'),
             ),
-            ListItem(text: "Hello world")
           ],
         ),
       ),
