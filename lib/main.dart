@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scription_mobile/http-common.dart';
-import 'package:scription_mobile/notebooks.dart';
-import 'package:scription_mobile/services/authentication.service.dart';
+import 'package:scription_mobile/login.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,37 +31,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _isLoginDisabled = false;
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  void _login() {
-    // If local validations pass...
-    if (_formKey.currentState.validate()) {
-      setState(() {
-        _isLoginDisabled = true;
-      });
-
-      // If serverside validations pass...
-      AuthenticationService()
-          .login(emailController.text, passwordController.text)
-          .then((value) {
-        // Navigate to notebooks view
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Notebooks()));
-      }).catchError((error) {
-        final snackBar = SnackBar(content: Text(error.response.data['errors']));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      });
-
-      setState(() {
-        _isLoginDisabled = false;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
@@ -71,38 +38,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-          child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: emailController,
-              validator: (value) {
-                return value.isEmpty ? 'Please enter an email' : null;
-              },
-              decoration: const InputDecoration(
-                  labelText: 'Email Address',
-                  icon: Icon(Icons.alternate_email)),
-            ),
-            TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              validator: (value) {
-                return value.isEmpty ? 'Please enter a password' : null;
-              },
-              decoration: const InputDecoration(
-                  labelText: 'Password', icon: Icon(Icons.lock)),
-            ),
-            ElevatedButton(
-              onPressed: _isLoginDisabled ? null : _login,
-              child: Text('Login'),
-            ),
-          ],
-        ),
-      )),
+      body: Login(),
     );
   }
 }
