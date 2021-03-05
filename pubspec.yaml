@@ -27,9 +27,14 @@ dependencies:
   # Use dio package for making and managing API calls
   dio: ^3.0.10
 
+  # Use mock adapter to make mocking Dio more flexible
+  http_mock_adapter: ^0.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  test: ^1.16.5
 
 
 # For information on the generic Dart part of this file, see the
