@@ -8,10 +8,28 @@ class Notebooks extends StatefulWidget {
   _NotebooksState createState() => _NotebooksState();
 }
 
-Notebook n = Notebook(id: 1, name: "Notebook", summary: "n1");
-
 class _NotebooksState extends State<Notebooks> {
-  final List<Notebook> items = <Notebook>[n, n, n, n, n, n];
+  List<Notebook> _notebooks = [];
+
+  _getNotebooks() async {
+    NotebookService().index().then((response) {
+      List<Notebook> newList = [];
+
+      for (Map<String, dynamic> data in response) {
+        newList.add(Notebook.fromJson(data));
+      }
+
+      setState(() {
+        _notebooks = newList;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getNotebooks();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +39,9 @@ class _NotebooksState extends State<Notebooks> {
       body: Center(
           child: ListView.separated(
         padding: const EdgeInsets.all(8),
-        itemCount: items.length,
+        itemCount: _notebooks.length,
         itemBuilder: (BuildContext context, int index) {
-          return NotebookCard(value: items[index]);
+          return NotebookCard(value: _notebooks[index]);
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       )),
