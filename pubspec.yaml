@@ -31,9 +31,11 @@ dependencies:
   http_mock_adapter: ^0.1.5
 
 dev_dependencies:
+  # Flutter testing framework - required for widget tests
   flutter_test:
     sdk: flutter
 
+  # Alt. testing framework - required for non-widget tests
   test: ^1.16.5
 
 
