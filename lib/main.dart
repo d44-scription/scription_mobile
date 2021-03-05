@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/notebooks.dart';
+import 'package:scription_mobile/services/authentication.service.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,12 +47,14 @@ class _HomeState extends State<Home> {
       });
 
       // If serverside validations pass...
-      Http().login(emailController.text, passwordController.text).then((value) {
+      AuthenticationService()
+          .login(emailController.text, passwordController.text)
+          .then((value) {
         // Navigate to notebooks view
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Notebooks()));
       }).catchError((error) {
-        final snackBar = SnackBar(content: Text(error.response.data["errors"]));
+        final snackBar = SnackBar(content: Text(error.response.data['errors']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
 
@@ -79,7 +82,7 @@ class _HomeState extends State<Home> {
                 return value.isEmpty ? 'Please enter an email' : null;
               },
               decoration: const InputDecoration(
-                  labelText: "Email Address",
+                  labelText: 'Email Address',
                   icon: Icon(Icons.alternate_email)),
             ),
             TextFormField(
@@ -91,7 +94,7 @@ class _HomeState extends State<Home> {
                 return value.isEmpty ? 'Please enter a password' : null;
               },
               decoration: const InputDecoration(
-                  labelText: "Password", icon: Icon(Icons.lock)),
+                  labelText: 'Password', icon: Icon(Icons.lock)),
             ),
             ElevatedButton(
               onPressed: _isLoginDisabled ? null : _login,
