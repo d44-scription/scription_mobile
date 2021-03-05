@@ -45,34 +45,37 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            controller: emailController,
-            validator: (value) {
-              return value.isEmpty ? 'Please enter an email' : null;
-            },
-            decoration: const InputDecoration(
-                labelText: 'Email Address', icon: Icon(Icons.alternate_email)),
-          ),
-          TextFormField(
-            controller: passwordController,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            validator: (value) {
-              return value.isEmpty ? 'Please enter a password' : null;
-            },
-            decoration: const InputDecoration(
-                labelText: 'Password', icon: Icon(Icons.lock)),
-          ),
-          ElevatedButton(
-            onPressed: _isLoginDisabled ? null : _login,
-            child: Text('Login'),
-          ),
-        ],
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: emailController,
+              validator: (value) {
+                return value.isEmpty ? 'Please enter an email' : null;
+              },
+              decoration: const InputDecoration(
+                  labelText: 'Email Address',
+                  icon: Icon(Icons.alternate_email)),
+            ),
+            TextFormField(
+              controller: passwordController,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              validator: (value) {
+                return value.isEmpty ? 'Please enter a password' : null;
+              },
+              decoration: const InputDecoration(
+                  labelText: 'Password', icon: Icon(Icons.lock)),
+            ),
+            ElevatedButton(
+              onPressed: _isLoginDisabled ? null : _login,
+              child: Text('Login'),
+            ),
+          ],
+        ),
       ),
     );
   }
