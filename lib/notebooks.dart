@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scription_mobile/services/notebooks.service.dart';
+import 'package:scription_mobile/services/notebook.service.dart';
 
 class Notebooks extends StatelessWidget {
   @override
@@ -20,7 +20,7 @@ class Notebooks extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              NotebooksService().index().then((value) => {});
+              NotebookService().index().then((value) => {});
             },
             child: Text('Get Notebooks'),
           ),
