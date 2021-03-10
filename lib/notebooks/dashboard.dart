@@ -15,8 +15,9 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(widget.notebook.name)),
-        body: Column(
-          children: [Text(widget.notebook.summary)],
-        ));
+        body: Center(
+            child: Column(
+          children: [Text(widget.notebook.summary ?? '')],
+        )));
   }
 }

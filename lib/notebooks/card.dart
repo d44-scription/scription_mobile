@@ -16,9 +16,7 @@ class _NotebookCardState extends State<NotebookCard> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.notebook.name),
-      subtitle: widget.notebook.summary == null
-          ? null
-          : Text(widget.notebook.summary),
+      subtitle: Text(widget.notebook.summary ?? ''),
       onTap: () {
         Navigator.push(
             context,
