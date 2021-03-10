@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:flutter/material.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
@@ -21,7 +22,7 @@ void main() {
       {
         'id': 3,
         'name': 'Notebook 3',
-        'summary': 'Notebook 3 summary',
+        'summary': 'Notebook 3 Summary',
       }
     ];
 
@@ -32,15 +33,25 @@ void main() {
       Http().dio.httpClientAdapter = dioAdapter;
     });
 
-    testWidgets('Rendering widgets correctly', (WidgetTester tester) async {
+    testWidgets('Rendering card for each notebook', (WidgetTester tester) async {
       dioAdapter.onGet('/notebooks').reply(200, notebooks);
 
-      final widget = new MaterialApp(home: Notebooks());
+      final widget = new MediaQuery(
+          data: new MediaQueryData(),
+          child: new MaterialApp(home: Notebooks()));
 
       await tester.pumpWidget(widget);
-      await tester.pumpAndSettle();
+      await tester.pump(Duration(seconds: 1));
+
+      expect(find.text('Notebooks'), findsOneWidget);
 
       expect(find.text('Notebook 1'), findsOneWidget);
+      expect(find.text('Notebook 1 Summary'), findsOneWidget);
+
+      expect(find.text('Notebook 2'), findsOneWidget);
+
+      expect(find.text('Notebook 3'), findsOneWidget);
+      expect(find.text('Notebook 3 Summary'), findsOneWidget);
     });
   });
 }
