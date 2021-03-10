@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/models/notebook.dart';
+import 'package:scription_mobile/notebooks/dashboard.dart';
 
 class NotebookCard extends StatefulWidget {
   NotebookCard({Key key, this.notebook}) : super(key: key);
@@ -15,15 +16,15 @@ class _NotebookCardState extends State<NotebookCard> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.notebook.name),
-      subtitle: widget.notebook.summary == null ? null : Text(widget.notebook.summary),
+      subtitle: widget.notebook.summary == null
+          ? null
+          : Text(widget.notebook.summary),
       onTap: () {
-        print("Hello");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Dashboard(notebook: widget.notebook)));
       },
     );
-    // return Container(
-    //   height: 50,
-    //   color: Colors.amber[500],
-    //   child: Center(child: Text(widget.notebook.name)),
-    // );
   }
 }
