@@ -10,8 +10,13 @@ class Notebooks extends StatefulWidget {
 
 class _NotebooksState extends State<Notebooks> {
   List<Notebook> _notebooks = [];
+  bool _loading = true;
 
-  _getNotebooks() async {
+  Future<void> _getNotebooks() async {
+    setState(() {
+      _loading = true;
+    });
+
     NotebookService().index().then((response) {
       List<Notebook> newList = [];
 
@@ -21,6 +26,7 @@ class _NotebooksState extends State<Notebooks> {
 
       setState(() {
         _notebooks = newList;
+        _loading = false;
       });
     });
   }
@@ -34,17 +40,22 @@ class _NotebooksState extends State<Notebooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text('Notebooks index'), automaticallyImplyLeading: false),
-      body: Center(
-          child: ListView.separated(
-        padding: const EdgeInsets.all(8),
-        itemCount: _notebooks.length,
-        itemBuilder: (BuildContext context, int index) {
-          return NotebookCard(value: _notebooks[index]);
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
-      )),
-    );
+        appBar:
+            AppBar(title: Text('Notebooks'), automaticallyImplyLeading: false),
+        body: RefreshIndicator(
+          child: Center(
+              child: _loading
+                  ? CircularProgressIndicator()
+                  : ListView.separated(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: _notebooks.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return NotebookCard(notebook: _notebooks[index]);
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(),
+                    )),
+          onRefresh: _getNotebooks,
+        ));
   }
 }

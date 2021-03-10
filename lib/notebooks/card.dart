@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:scription_mobile/models/notebook.dart';
 
 class NotebookCard extends StatefulWidget {
-  NotebookCard({Key key, this.value}) : super(key: key);
+  NotebookCard({Key key, this.notebook}) : super(key: key);
 
-  final Notebook value;
+  final Notebook notebook;
 
   @override
   _NotebookCardState createState() => _NotebookCardState();
@@ -13,10 +13,17 @@ class NotebookCard extends StatefulWidget {
 class _NotebookCardState extends State<NotebookCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      color: Colors.amber[500],
-      child: Center(child: Text(widget.value.name)),
+    return ListTile(
+      title: Text(widget.notebook.name),
+      subtitle: widget.notebook.summary == null ? null : Text(widget.notebook.summary),
+      onTap: () {
+        print("Hello");
+      },
     );
+    // return Container(
+    //   height: 50,
+    //   color: Colors.amber[500],
+    //   child: Center(child: Text(widget.notebook.name)),
+    // );
   }
 }
