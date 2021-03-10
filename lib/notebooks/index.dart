@@ -3,6 +3,7 @@ import 'package:scription_mobile/notebooks/card.dart';
 import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/services/notebook.service.dart';
 import 'package:scription_mobile/styles.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class Notebooks extends StatefulWidget {
   @override
@@ -41,8 +42,7 @@ class _NotebooksState extends State<Notebooks> {
           child: Column(children: [
             Text('No notebooks added!', style: Styles.title()),
             Divider(),
-            Text('Please visit the Scription Web App to set up your content',
-                style: Styles.body())
+            Text(Constants.VISIT_WEB_APP, style: Styles.body())
           ]));
     } else {
       return ListView.separated(

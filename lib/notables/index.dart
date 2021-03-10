@@ -3,6 +3,7 @@ import 'package:scription_mobile/models/notable.dart';
 import 'package:scription_mobile/services/notable.service.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/card.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class Notables extends StatefulWidget {
   Notables({Key key, this.type, this.notebookId}) : super(key: key);
@@ -45,8 +46,7 @@ class _NotablesState extends State<Notables> {
           child: Column(children: [
             Text('No notables added!', style: Styles.title()),
             Divider(),
-            Text('Please visit the Scription Web App to set up your content',
-                style: Styles.body())
+            Text(Constants.VISIT_WEB_APP, style: Styles.body())
           ]));
     } else {
       return ListView.separated(
@@ -68,8 +68,7 @@ class _NotablesState extends State<Notables> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:
-            AppBar(title: Text('Notables'), automaticallyImplyLeading: false),
+        appBar: AppBar(title: Text(widget.type)),
         body: RefreshIndicator(
           child: Center(child: _renderList()),
           onRefresh: _getNotables,

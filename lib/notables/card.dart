@@ -17,8 +17,7 @@ class _NotableCardState extends State<NotableCard> {
     return ListTile(
       title: Text(widget.notable.name, style: Styles.title()),
       subtitle: Text(widget.notable.description ?? '', style: Styles.body()),
-      onTap: () {
-      },
+      onTap: () {},
     );
   }
 }
