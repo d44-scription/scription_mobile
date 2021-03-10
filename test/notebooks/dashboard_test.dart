@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:scription_mobile/models/notebook.dart';
-import 'package:scription_mobile/notebooks/card.dart';
+import 'package:scription_mobile/notebooks/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  group('Notebooks card widget', () {
+  group('Notebooks dashboard widget', () {
     final notebook1 = Notebook(id: 1, name: 'Notebook 1', summary: 'Summary 1');
     final notebook2 = Notebook(id: 1, name: 'Notebook 2');
 
@@ -13,7 +13,9 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Scaffold(body: NotebookCard(notebook: notebook1))));
+              home: Dashboard(
+            notebook: notebook1,
+          )));
 
       await tester.pumpWidget(widget);
 
@@ -30,7 +32,9 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Scaffold(body: NotebookCard(notebook: notebook2))));
+              home: Dashboard(
+            notebook: notebook2,
+          )));
 
       await tester.pumpWidget(widget);
 
