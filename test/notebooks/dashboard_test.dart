@@ -23,6 +23,16 @@ void main() {
       expect(find.text('Notebook 1'), findsOneWidget);
       expect(find.text('Summary 1'), findsOneWidget);
 
+      // Confirm navigation buttons are rendered
+      expect(find.text('Characters'), findsOneWidget);
+      expect(find.text('View characters for Notebook 1'), findsOneWidget);
+
+      expect(find.text('Items'), findsOneWidget);
+      expect(find.text('View items for Notebook 1'), findsOneWidget);
+
+      expect(find.text('Locations'), findsOneWidget);
+      expect(find.text('View locations for Notebook 1'), findsOneWidget);
+
       // Confirm second notebook is not shown
       expect(find.text('Notebook 2'), findsNWidgets(0));
       expect(find.text('Summary 2'), findsNWidgets(0));
@@ -41,6 +51,16 @@ void main() {
       // Confirm it renders without summary
       expect(find.text('Notebook 2'), findsOneWidget);
       expect(find.text('Summary 2'), findsNWidgets(0));
+
+      // Confirm navigation buttons are rendered
+      expect(find.text('Characters'), findsOneWidget);
+      expect(find.text('View characters for Notebook 2'), findsOneWidget);
+
+      expect(find.text('Items'), findsOneWidget);
+      expect(find.text('View items for Notebook 2'), findsOneWidget);
+
+      expect(find.text('Locations'), findsOneWidget);
+      expect(find.text('View locations for Notebook 2'), findsOneWidget);
 
       // Confirm first notebook is not shown
       expect(find.text('Notebook 1'), findsNWidgets(0));
