@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scription_mobile/notebooks.dart';
+import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
 
 class Login extends StatefulWidget {
