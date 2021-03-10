@@ -47,9 +47,7 @@ class _NotebooksState extends State<Notebooks> {
       return ListView.separated(
         padding: const EdgeInsets.all(8),
         itemCount: _notebooks.length,
-        itemBuilder: (BuildContext context, int index) {
-          return NotebookCard(notebook: _notebooks[index]);
-        },
+        itemBuilder: (BuildContext context, int index) => NotebookCard(notebook: _notebooks[index]),
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       );
     }
