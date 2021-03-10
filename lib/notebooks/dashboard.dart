@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/styles.dart';
+import 'package:scription_mobile/notables/index.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.notebook}) : super(key: key);
@@ -25,19 +26,40 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.person, size: 48),
                         title: Text("Characters"),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Notables(
+                                      type: "Characters",
+                                      notebookId: widget.notebook.id)));
+                        },
                         subtitle: Text(
                             "View characters for ${widget.notebook.name}")),
                     ListTile(
                         leading: Icon(Icons.home, size: 48),
                         title: Text("Locations"),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Notables(
+                                      type: "Locations",
+                                      notebookId: widget.notebook.id)));
+                        },
                         subtitle:
                             Text("View locations for ${widget.notebook.name}")),
                     ListTile(
                         leading: Icon(Icons.hardware, size: 48),
                         title: Text("Items"),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Notables(
+                                      type: "Items",
+                                      notebookId: widget.notebook.id)));
+                        },
                         subtitle:
                             Text("View items for ${widget.notebook.name}")),
                   ],
