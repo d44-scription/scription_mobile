@@ -31,6 +31,30 @@ class _NotebooksState extends State<Notebooks> {
     });
   }
 
+  Widget _renderList() {
+    if (_loading) {
+      return CircularProgressIndicator();
+    } else if (!_loading && _notebooks.length == 0) {
+      return Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(children: [
+            Text('No notebooks added!', style: TextStyle(fontSize: 24)),
+            Divider(),
+            Text('Please visit the Scription Web App to set up your content',
+                style: TextStyle(fontSize: 16))
+          ]));
+    } else {
+      return ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: _notebooks.length,
+        itemBuilder: (BuildContext context, int index) {
+          return NotebookCard(notebook: _notebooks[index]);
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,18 +67,7 @@ class _NotebooksState extends State<Notebooks> {
         appBar:
             AppBar(title: Text('Notebooks'), automaticallyImplyLeading: false),
         body: RefreshIndicator(
-          child: Center(
-              child: _loading
-                  ? CircularProgressIndicator()
-                  : ListView.separated(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: _notebooks.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return NotebookCard(notebook: _notebooks[index]);
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(),
-                    )),
+          child: Center(child: _renderList()),
           onRefresh: _getNotebooks,
         ));
   }
