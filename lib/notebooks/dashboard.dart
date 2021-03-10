@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/models/notebook.dart';
+import 'package:scription_mobile/styles.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.notebook}) : super(key: key);
@@ -17,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
         appBar: AppBar(title: Text(widget.notebook.name)),
         body: Center(
             child: Column(
-          children: [Text(widget.notebook.summary ?? '')],
+          children: [Text(widget.notebook.summary ?? '', style: Styles.body())],
         )));
   }
 }

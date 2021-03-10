@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scription_mobile/notebooks/card.dart';
 import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/services/notebook.service.dart';
+import 'package:scription_mobile/styles.dart';
 
 class Notebooks extends StatefulWidget {
   @override
@@ -34,20 +35,21 @@ class _NotebooksState extends State<Notebooks> {
   Widget _renderList() {
     if (_loading) {
       return CircularProgressIndicator();
-    } else if (!_loading && _notebooks.length == 0) {
+    } else if (!_loading && _notebooks.isEmpty) {
       return Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(children: [
-            Text('No notebooks added!', style: TextStyle(fontSize: 24)),
+            Text('No notebooks added!', style: Styles.title()),
             Divider(),
             Text('Please visit the Scription Web App to set up your content',
-                style: TextStyle(fontSize: 16))
+                style: Styles.body())
           ]));
     } else {
       return ListView.separated(
         padding: const EdgeInsets.all(8),
         itemCount: _notebooks.length,
-        itemBuilder: (BuildContext context, int index) => NotebookCard(notebook: _notebooks[index]),
+        itemBuilder: (BuildContext context, int index) =>
+            NotebookCard(notebook: _notebooks[index]),
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       );
     }
