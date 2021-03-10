@@ -37,13 +37,26 @@ class _NotablesState extends State<Notables> {
   }
 
   Widget _renderList() {
-    return ListView.separated(
-      padding: const EdgeInsets.all(8),
-      itemCount: _notables.length,
-      itemBuilder: (BuildContext context, int index) =>
-          NotableCard(notable: _notables[index]),
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
-    );
+    if (_loading) {
+      return CircularProgressIndicator();
+    } else if (!_loading && _notables.isEmpty) {
+      return Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(children: [
+            Text('No notables added!', style: Styles.title()),
+            Divider(),
+            Text('Please visit the Scription Web App to set up your content',
+                style: Styles.body())
+          ]));
+    } else {
+      return ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: _notables.length,
+        itemBuilder: (BuildContext context, int index) =>
+            NotableCard(notable: _notables[index]),
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+      );
+    }
   }
 
   @override

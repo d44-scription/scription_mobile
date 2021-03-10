@@ -14,6 +14,11 @@ class NotableCard extends StatefulWidget {
 class _NotableCardState extends State<NotableCard> {
   @override
   Widget build(BuildContext context) {
-    return Text(widget.notable.name);
+    return ListTile(
+      title: Text(widget.notable.name, style: Styles.title()),
+      subtitle: Text(widget.notable.description ?? '', style: Styles.body()),
+      onTap: () {
+      },
+    );
   }
 }
