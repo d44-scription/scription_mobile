@@ -3,7 +3,6 @@ import 'package:scription_mobile/notebooks/index.dart';
 import 'package:flutter/material.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:scription_mobile/http-common.dart';
-import 'package:scription_mobile/constants.dart' as Constants;
 
 void main() {
   group('Notebooks index widget', () {
@@ -33,8 +32,7 @@ void main() {
       Http().dio.httpClientAdapter = dioAdapter;
     });
 
-    testWidgets('Rendering card for each notebook',
-        (WidgetTester tester) async {
+    testWidgets('Rendering card for each notebook', (WidgetTester tester) async {
       dioAdapter.onGet('/notebooks').reply(200, notebooks);
 
       final widget = new MediaQuery(
@@ -57,7 +55,7 @@ void main() {
 
       // Confirm "no notebooks added" text is hidden
       expect(find.text('No notebooks added!'), findsNWidgets(0));
-      expect(find.text(Constants.VISIT_WEB_APP), findsNWidgets(0));
+      expect(find.text('Please visit the Scription Web App to set up your content'), findsNWidgets(0));
     });
 
     testWidgets('When no notebooks available', (WidgetTester tester) async {
@@ -83,7 +81,7 @@ void main() {
 
       // Confirm "no notebooks added" text is shown
       expect(find.text('No notebooks added!'), findsOneWidget);
-      expect(find.text(Constants.VISIT_WEB_APP), findsOneWidget);
+      expect(find.text('Please visit the Scription Web App to set up your content'), findsOneWidget);
     });
   });
 }
