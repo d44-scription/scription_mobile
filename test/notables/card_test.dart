@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 
 void main() {
   group('Notables card widget', () {
-    final notable1 = Notable(id: 1, name: 'Notable 1', description: 'Description 1');
+    final notable1 =
+        Notable(id: 1, name: 'Notable 1', description: 'Description 1');
     final notable2 = Notable(id: 1, name: 'Notable 2');
+    final notable3 = Notable(
+        id: 1,
+        name: 'Notable 3',
+        description:
+            'Description that mentions @[Character 1](@1), #[Location 2](#2), and :[Item 3](:3)');
+    final notable4 = Notable(id: 1, name: 'Notable 4', description: 'X' * 151);
 
     testWidgets('Rendering title and description of notable',
         (WidgetTester tester) async {
@@ -41,6 +48,35 @@ void main() {
       // Confirm first notable is not shown
       expect(find.text('Notable 1'), findsNWidgets(0));
       expect(find.text('Description 1'), findsNWidgets(0));
+    });
+
+    testWidgets('Rendering regex-cleaned text', (WidgetTester tester) async {
+      final widget = new MediaQuery(
+          data: new MediaQueryData(),
+          child: new MaterialApp(
+              home: Scaffold(body: NotableCard(notable: notable3))));
+
+      await tester.pumpWidget(widget);
+
+      // Confirm description has mentions removed
+      expect(find.text('Notable 3'), findsOneWidget);
+      expect(
+          find.text(
+              'Description that mentions Character 1, Location 2, and Item 3'),
+          findsOneWidget);
+    });
+
+    testWidgets('Rendering truncated text', (WidgetTester tester) async {
+      final widget = new MediaQuery(
+          data: new MediaQueryData(),
+          child: new MaterialApp(
+              home: Scaffold(body: NotableCard(notable: notable4))));
+
+      await tester.pumpWidget(widget);
+
+      // Confirm string is shortened and has an ellipses appended
+      expect(find.text('Notable 4'), findsOneWidget);
+      expect(find.text('${'X' * 150}...'), findsOneWidget);
     });
   });
 }
