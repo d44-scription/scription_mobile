@@ -14,33 +14,25 @@ void main() async {
       Http().dio.httpClientAdapter = dioAdapter;
     });
 
-    setUp(() {
-      // Reset auth token before each test
+    test('logging in unsuccessfully', () async {
       Http().aToken = '';
+
+      dioAdapter
+          .onPost('/users/login')
+          .reply(422, {}, headers: {'set-cookie': []});
+
+      // Confirm auth token is not set
+      expect(AuthenticationService().login('Test email', 'test password'),
+          throwsException);
+
+      expect(Http().aToken, '');
     });
 
-    group('logging in', () {
-      test('successfully', () async {
-        dioAdapter.onPost('/users/login').reply(200, {}, headers: {
-          'set-cookie': ['Token: 12345']
-        });
+    test('when login stored by Http module', () async  {
+      Http().aToken = 'XYZ';
 
-        await AuthenticationService().login('Test email', 'test password');
-
-        expect(Http().aToken, 'Token: 12345');
-      });
-
-      test('unsuccessfully', () async {
-        dioAdapter
-            .onPost('/users/login')
-            .reply(422, {}, headers: {'set-cookie': []});
-
-        // Confirm auth token is not set
-        expect(AuthenticationService().login('Test email', 'test password'),
-            throwsException);
-
-        expect(Http().aToken, '');
-      });
+      // Confirm positive result is returned from isLoggedIn
+      expect(await AuthenticationService().isLoggedIn(), true);
     });
   });
 }

@@ -22,7 +22,7 @@ class AuthenticationService {
 
       // Save cookie to global variable to include it in future API calls
       Http().aToken = token;
-      _storage.write(key: 'aToken', value: token);
+      await _storage.write(key: 'aToken', value: token);
     }
   }
 
