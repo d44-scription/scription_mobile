@@ -55,7 +55,7 @@ void main() {
       expect(find.text('Notebook 3'), findsOneWidget);
       expect(find.text('Notebook 3 Summary'), findsOneWidget);
 
-      // Confirm "no notebooks added" text is hidden
+      // Confirm 'no notebooks added' text is hidden
       expect(find.text('No notebooks added!'), findsNWidgets(0));
       expect(find.text(Constants.VISIT_WEB_APP), findsNWidgets(0));
     });
@@ -81,7 +81,7 @@ void main() {
       expect(find.text('Notebook 3'), findsNWidgets(0));
       expect(find.text('Notebook 3 Summary'), findsNWidgets(0));
 
-      // Confirm "no notebooks added" text is shown
+      // Confirm 'no notebooks added' text is shown
       expect(find.text('No notebooks added!'), findsOneWidget);
       expect(find.text(Constants.VISIT_WEB_APP), findsOneWidget);
     });

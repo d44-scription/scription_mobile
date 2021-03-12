@@ -8,7 +8,7 @@ void main() async {
     DioAdapter dioAdapter;
 
     final notebookId = 1;
-    final type = "TestType";
+    final type = 'TestType';
 
     final notables = [
       {'name': 'Notable 1', 'summary': 'Test summary 1', 'id': 1},

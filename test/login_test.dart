@@ -10,7 +10,7 @@ void main() {
     final widget = new MediaQuery(
         data: new MediaQueryData(), child: new MaterialApp(home: Login()));
 
-    final error = {'errors': "Test Error Message"};
+    final error = {'errors': 'Test Error Message'};
 
     setUpAll(() {
       // Set up mock dio adapter before all tests

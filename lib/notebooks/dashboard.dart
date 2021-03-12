@@ -25,43 +25,43 @@ class _DashboardState extends State<Dashboard> {
                     Text(widget.notebook.summary ?? '', style: Styles.body()),
                     ListTile(
                         leading: Icon(Icons.person, size: 48),
-                        title: Text("Characters"),
+                        title: Text('Characters'),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notables(
-                                      type: "Characters",
+                                      type: 'Characters',
                                       notebookId: widget.notebook.id)));
                         },
                         subtitle: Text(
-                            "View characters for ${widget.notebook.name}")),
+                            'View characters for ${widget.notebook.name}')),
                     ListTile(
                         leading: Icon(Icons.home, size: 48),
-                        title: Text("Locations"),
+                        title: Text('Locations'),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notables(
-                                      type: "Locations",
+                                      type: 'Locations',
                                       notebookId: widget.notebook.id)));
                         },
                         subtitle:
-                            Text("View locations for ${widget.notebook.name}")),
+                            Text('View locations for ${widget.notebook.name}')),
                     ListTile(
                         leading: Icon(Icons.hardware, size: 48),
-                        title: Text("Items"),
+                        title: Text('Items'),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notables(
-                                      type: "Items",
+                                      type: 'Items',
                                       notebookId: widget.notebook.id)));
                         },
                         subtitle:
-                            Text("View items for ${widget.notebook.name}")),
+                            Text('View items for ${widget.notebook.name}')),
                   ],
                 ))));
   }

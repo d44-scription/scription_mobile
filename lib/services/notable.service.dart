@@ -4,7 +4,7 @@ class NotableService {
   // GET notables index
   Future index(int notebookId, String type) async {
     final response =
-        await Http().dio.get("/notebooks/$notebookId/${type.toLowerCase()}");
+        await Http().dio.get('/notebooks/$notebookId/${type.toLowerCase()}');
 
     return response.data;
   }

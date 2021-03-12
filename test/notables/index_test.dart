@@ -60,7 +60,7 @@ void main() {
         expect(find.text('Notable 3'), findsOneWidget);
         expect(find.text('Notable 3 Description'), findsOneWidget);
 
-        // Confirm "no characters added" text is hidden
+        // Confirm 'no characters added' text is hidden
         expect(find.text('No characters added!'), findsNWidgets(0));
         expect(find.text(Constants.VISIT_WEB_APP), findsNWidgets(0));
       });
@@ -87,7 +87,7 @@ void main() {
         expect(find.text('Notable 3'), findsNWidgets(0));
         expect(find.text('Notable 3 Description'), findsNWidgets(0));
 
-        // Confirm "no characters added" text is shown
+        // Confirm 'no characters added' text is shown
         expect(find.text('No characters added!'), findsOneWidget);
         expect(find.text(Constants.VISIT_WEB_APP), findsOneWidget);
       });
@@ -119,7 +119,7 @@ void main() {
         expect(find.text('Notable 3'), findsOneWidget);
         expect(find.text('Notable 3 Description'), findsOneWidget);
 
-        // Confirm "no locations added" text is hidden
+        // Confirm 'no locations added' text is hidden
         expect(find.text('No locations added!'), findsNWidgets(0));
         expect(find.text(Constants.VISIT_WEB_APP), findsNWidgets(0));
       });
@@ -146,7 +146,7 @@ void main() {
         expect(find.text('Notable 3'), findsNWidgets(0));
         expect(find.text('Notable 3 Description'), findsNWidgets(0));
 
-        // Confirm "no locations added" text is shown
+        // Confirm 'no locations added' text is shown
         expect(find.text('No locations added!'), findsOneWidget);
         expect(find.text(Constants.VISIT_WEB_APP), findsOneWidget);
       });
@@ -176,7 +176,7 @@ void main() {
         expect(find.text('Notable 3'), findsOneWidget);
         expect(find.text('Notable 3 Description'), findsOneWidget);
 
-        // Confirm "no items added" text is hidden
+        // Confirm 'no items added' text is hidden
         expect(find.text('No items added!'), findsNWidgets(0));
         expect(find.text(Constants.VISIT_WEB_APP), findsNWidgets(0));
       });
@@ -203,7 +203,7 @@ void main() {
         expect(find.text('Notable 3'), findsNWidgets(0));
         expect(find.text('Notable 3 Description'), findsNWidgets(0));
 
-        // Confirm "no items added" text is shown
+        // Confirm 'no items added' text is shown
         expect(find.text('No items added!'), findsOneWidget);
         expect(find.text(Constants.VISIT_WEB_APP), findsOneWidget);
       });
