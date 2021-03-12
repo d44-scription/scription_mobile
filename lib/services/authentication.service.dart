@@ -2,7 +2,7 @@ import 'package:scription_mobile/http-common.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthenticationService {
-  final storage = new FlutterSecureStorage();
+  final _storage = new FlutterSecureStorage();
 
   Future login(email, password) async {
     final params = {
@@ -22,7 +22,7 @@ class AuthenticationService {
 
       // Save cookie to global variable to include it in future API calls
       Http().aToken = token;
-      storage.write(key: 'aToken', value: token);
+      _storage.write(key: 'aToken', value: token);
     }
   }
 
@@ -31,8 +31,8 @@ class AuthenticationService {
     if (Http().aToken != '') return true;
 
     // Otherwise, if storage contains key then set it in http-common and return true
-    if (await storage.containsKey(key: 'aToken')) {
-      final token = await storage.read(key: 'aToken');
+    if (await _storage.containsKey(key: 'aToken')) {
+      final token = await _storage.read(key: 'aToken');
       Http().aToken = token;
 
       return true;
