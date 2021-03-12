@@ -57,7 +57,8 @@ class _LoginState extends State<Login> {
               },
               decoration: const InputDecoration(
                   labelText: 'Email Address',
-                  icon: Icon(Icons.alternate_email)),
+                  icon: Icon(Icons.alternate_email, color: Colors.orange),
+                  labelStyle: TextStyle(color: Colors.white60)),
             ),
             TextFormField(
               controller: passwordController,
@@ -68,7 +69,9 @@ class _LoginState extends State<Login> {
                 return value.isEmpty ? 'Please enter a password' : null;
               },
               decoration: const InputDecoration(
-                  labelText: 'Password', icon: Icon(Icons.lock)),
+                  labelText: 'Password',
+                  icon: Icon(Icons.lock, color: Colors.orange),
+                  labelStyle: TextStyle(color: Colors.white60)),
             ),
             ElevatedButton(
               onPressed: _isLoginDisabled ? null : _login,

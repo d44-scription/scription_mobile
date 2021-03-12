@@ -8,4 +8,12 @@ class Styles {
   static TextStyle body() {
     return TextStyle(fontSize: 16);
   }
+
+  static TextStyle note () {
+    return TextStyle(fontSize: 12);
+  }
+
+  static IconThemeData icon () {
+    return IconThemeData(color: Colors.orangeAccent);
+  }
 }

@@ -12,6 +12,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Default theme styles
         primarySwatch: Colors.orange,
+        scaffoldBackgroundColor: Colors.grey[800],
+        textTheme: Theme.of(context)
+            .textTheme
+            .apply(bodyColor: Colors.white, displayColor: Colors.white),
+        dividerColor: Colors.orangeAccent,
+        errorColor: Colors.red[200],
       ),
       home: Home(title: 'Scription'),
     );

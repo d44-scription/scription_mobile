@@ -55,7 +55,7 @@ class _NotesState extends State<Notes> {
         itemBuilder: (BuildContext context, int index) =>
             NoteCard(note: _notes[index]),
         separatorBuilder: (BuildContext context, int index) =>
-            const Divider(color: Colors.orange, thickness: 0.75),
+            const Divider(thickness: 0.75),
       );
     }
   }

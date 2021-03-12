@@ -24,7 +24,8 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Text(widget.notebook.summary ?? '', style: Styles.body()),
                     ListTile(
-                        leading: Icon(Icons.person, size: 48),
+                        leading:
+                            Icon(Icons.person, size: 48, color: Colors.orange),
                         title: Text('Characters'),
                         onTap: () {
                           Navigator.push(
@@ -37,7 +38,8 @@ class _DashboardState extends State<Dashboard> {
                         subtitle: Text(
                             'View characters for ${widget.notebook.name}')),
                     ListTile(
-                        leading: Icon(Icons.home, size: 48),
+                        leading:
+                            Icon(Icons.home, size: 48, color: Colors.orange),
                         title: Text('Locations'),
                         onTap: () {
                           Navigator.push(
@@ -50,7 +52,8 @@ class _DashboardState extends State<Dashboard> {
                         subtitle:
                             Text('View locations for ${widget.notebook.name}')),
                     ListTile(
-                        leading: Icon(Icons.hardware, size: 48),
+                        leading: Icon(Icons.hardware,
+                            size: 48, color: Colors.orange),
                         title: Text('Items'),
                         onTap: () {
                           Navigator.push(
