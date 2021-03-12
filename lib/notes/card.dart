@@ -19,7 +19,7 @@ class _NoteCardState extends State<NoteCard> {
     return ListTile(
       subtitle: Text(
           TextHelper.truncate(TextHelper.trimMentions(widget.note.content)),
-          style: Styles.body()),
+          style: Styles.note()),
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => Show(note: widget.note)));

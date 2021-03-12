@@ -16,9 +16,10 @@ class _ShowState extends State<Show> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Note')),
-      body: Text(
-          TextHelper.truncate(TextHelper.trimMentions(widget.note.content)),
-          style: Styles.note()),
+      body: Padding(
+          padding: EdgeInsets.all(24),
+          child: Text(TextHelper.trimMentions(widget.note.content),
+              style: Styles.note())),
     );
   }
 }
