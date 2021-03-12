@@ -18,7 +18,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      // Confirm title and Description are both shown
+      // Confirm content is shown with mentions removed
       expect(
           find.text('Note has content for Character 1, Location 2, and Item 3'),
           findsOneWidget);
