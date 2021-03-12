@@ -44,7 +44,8 @@ class _NotablesState extends State<Notables> {
       return Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(children: [
-            Text('No ${widget.type.toLowerCase()} added!', style: Styles.title()),
+            Text('No ${widget.type.toLowerCase()} added!',
+                style: Styles.title()),
             Divider(),
             Text(Constants.VISIT_WEB_APP, style: Styles.body())
           ]));
