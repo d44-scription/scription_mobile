@@ -16,9 +16,9 @@ class _NoteCardState extends State<NoteCard> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
+      subtitle: Text(
           TextHelper.truncate(TextHelper.trimMentions(widget.note.content)),
-          style: Styles.title()),
+          style: Styles.body()),
     );
   }
 }
