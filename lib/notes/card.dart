@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scription_mobile/models/note.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/text-helper.dart';
+import 'package:scription_mobile/notes/show.dart';
 
 class NoteCard extends StatefulWidget {
   NoteCard({Key key, this.note}) : super(key: key);
@@ -19,6 +20,10 @@ class _NoteCardState extends State<NoteCard> {
       subtitle: Text(
           TextHelper.truncate(TextHelper.trimMentions(widget.note.content)),
           style: Styles.body()),
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Show(note: widget.note)));
+      },
     );
   }
 }
