@@ -30,6 +30,9 @@ dependencies:
   # Use mock adapter to make mocking Dio more flexible
   http_mock_adapter: ^0.1.5
 
+  # Store secrets - ie the users AuthToken - in a way that's secure and available on different platforms
+  flutter_secure_storage: ^4.1.0
+
 dev_dependencies:
   # Flutter testing framework - required for widget tests
   flutter_test:
@@ -37,6 +40,13 @@ dev_dependencies:
 
   # Alt. testing framework - required for non-widget tests
   test: ^1.16.5
+
+  # Run a headless app for integration tests
+  flutter_driver:
+    sdk: flutter
+
+  # Run integration tests using integration_test
+  integration_test: ^1.0.2+2
 
 
 # For information on the generic Dart part of this file, see the

@@ -61,3 +61,19 @@ $ flutter test --concurrency 1 --coverage
   > ...
   > All tests passed!
 ```
+
+## Integration Tests
+
+Integration tests are run differently since they need a version of the app to be spun up first.
+
+Firstly, an emulator or device *must* be connected prior to running tests.
+
+The tests can then be run with:
+
+```dart
+flutter drive \
+  --driver=test_driver/integration_test.dart \
+  --target=integration_test/login_test.dart
+```
+
+Integration tests are stored under `integration_test/` and the `target` option in the command above can be updated to point to different suites.
