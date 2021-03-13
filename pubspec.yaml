@@ -41,6 +41,13 @@ dev_dependencies:
   # Alt. testing framework - required for non-widget tests
   test: ^1.16.5
 
+  # Run a headless app for integration tests
+  flutter_driver:
+    sdk: flutter
+
+  # Run integration tests using integration_test
+  integration_test: ^1.0.2+2
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
