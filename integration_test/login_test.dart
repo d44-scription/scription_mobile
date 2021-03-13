@@ -13,20 +13,18 @@ void main() {
   final _storage = new FlutterSecureStorage();
   DioAdapter dioAdapter;
 
+  final emailFinder = find.widgetWithText(TextField, 'Email Address');
+  final passwordFinder = find.widgetWithText(TextField, 'Password');
+  final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
+
+  final notebookFinder = find.text('Test Notebook');
+  final summaryFinder = find.text('Test Summary');
+
   final notebooks = [
     {
       'id': 1,
-      'name': 'Notebook 1',
-      'summary': 'Notebook 1 Summary',
-    },
-    {
-      'id': 2,
-      'name': 'Notebook 2',
-    },
-    {
-      'id': 3,
-      'name': 'Notebook 3',
-      'summary': 'Notebook 3 Summary',
+      'name': 'Test Notebook',
+      'summary': 'Test Summary',
     }
   ];
 
@@ -43,17 +41,18 @@ void main() {
         await _storage.deleteAll();
       });
 
-      testWidgets('render login page', (WidgetTester tester) async {
+      testWidgets('renders login page', (WidgetTester tester) async {
         app.main();
         await tester.pumpAndSettle();
 
-        final emailFinder = find.widgetWithText(TextField, 'Email Address');
-        final passwordFinder = find.widgetWithText(TextField, 'Password');
-        final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
-
+        // Confirm login page is rendered
         expect(emailFinder, findsOneWidget);
         expect(passwordFinder, findsOneWidget);
         expect(loginFinder, findsOneWidget);
+
+        // Confirm notebooks page is not rendered
+        expect(notebookFinder, findsNWidgets(0));
+        expect(summaryFinder, findsNWidgets(0));
       });
 
       testWidgets('storing login token when app is re-run',
@@ -66,9 +65,14 @@ void main() {
         app.main();
         await tester.pumpAndSettle();
 
-        final emailFinder = find.widgetWithText(TextField, 'Email Address');
-        final passwordFinder = find.widgetWithText(TextField, 'Password');
-        final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
+        // Confirm login page is rendered
+        expect(emailFinder, findsOneWidget);
+        expect(passwordFinder, findsOneWidget);
+        expect(loginFinder, findsOneWidget);
+
+        // Confirm notebooks page is not rendered
+        expect(notebookFinder, findsNWidgets(0));
+        expect(summaryFinder, findsNWidgets(0));
 
         // Enter email and password
         await tester.enterText(emailFinder, 'admin@example.com');
@@ -86,13 +90,13 @@ void main() {
         await tester.pumpAndSettle();
 
         // Confirm notebooks page is rendered
-        expect(find.text('Notebook 1'), findsOneWidget);
-        expect(find.text('Notebook 1 Summary'), findsOneWidget);
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
 
-        expect(find.text('Notebook 2'), findsOneWidget);
-
-        expect(find.text('Notebook 3'), findsOneWidget);
-        expect(find.text('Notebook 3 Summary'), findsOneWidget);
+        // Confirm login page is not rendered
+        expect(emailFinder, findsNWidgets(0));
+        expect(passwordFinder, findsNWidgets(0));
+        expect(loginFinder, findsNWidgets(0));
       });
     });
 
@@ -105,14 +109,14 @@ void main() {
         app.main();
         await tester.pumpAndSettle();
 
-        // Confirm cards are shown for each notebook
-        expect(find.text('Notebook 1'), findsOneWidget);
-        expect(find.text('Notebook 1 Summary'), findsOneWidget);
+        // Confirm notebooks page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
 
-        expect(find.text('Notebook 2'), findsOneWidget);
-
-        expect(find.text('Notebook 3'), findsOneWidget);
-        expect(find.text('Notebook 3 Summary'), findsOneWidget);
+        // Confirm login page is not rendered
+        expect(emailFinder, findsNWidgets(0));
+        expect(passwordFinder, findsNWidgets(0));
+        expect(loginFinder, findsNWidgets(0));
       });
     });
   });
