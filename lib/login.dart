@@ -45,6 +45,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
+
     return Scaffold(
         appBar: AppBar(title: Text('Scription')),
         body: Padding(
@@ -58,6 +60,8 @@ class _LoginState extends State<Login> {
                   validator: (value) {
                     return value.isEmpty ? 'Please enter an email' : null;
                   },
+                  onEditingComplete: node.nextFocus,
+                  textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                       labelText: 'Email Address',
                       icon: Icon(Icons.alternate_email, color: Colors.orange),
@@ -71,6 +75,7 @@ class _LoginState extends State<Login> {
                   validator: (value) {
                     return value.isEmpty ? 'Please enter a password' : null;
                   },
+                  onEditingComplete: _login,
                   decoration: const InputDecoration(
                       labelText: 'Password',
                       icon: Icon(Icons.lock, color: Colors.orange),
