@@ -38,38 +38,82 @@ void main() {
   });
 
   group('login page', () {
-    testWidgets('confirm login page is rendered when no login saved',
-        (WidgetTester tester) async {
-      await _storage.deleteAll();
+    group('with no stored token', () {
+      setUpAll(() async {
+        await _storage.deleteAll();
+      });
 
-      app.main();
-      await tester.pumpAndSettle();
+      testWidgets('render login page', (WidgetTester tester) async {
+        app.main();
+        await tester.pumpAndSettle();
 
-      final emailFinder = find.widgetWithText(TextField, 'Email Address');
-      final passwordFinder = find.widgetWithText(TextField, 'Password');
-      final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
+        final emailFinder = find.widgetWithText(TextField, 'Email Address');
+        final passwordFinder = find.widgetWithText(TextField, 'Password');
+        final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
 
-      expect(emailFinder, findsOneWidget);
-      expect(passwordFinder, findsOneWidget);
-      expect(loginFinder, findsOneWidget);
+        expect(emailFinder, findsOneWidget);
+        expect(passwordFinder, findsOneWidget);
+        expect(loginFinder, findsOneWidget);
+      });
+
+      testWidgets('storing login token when app is re-run',
+          (WidgetTester tester) async {
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+        dioAdapter.onPost('/users/login').reply(200, {}, headers: {
+          'set-cookie': ['Mock Token']
+        });
+
+        app.main();
+        await tester.pumpAndSettle();
+
+        final emailFinder = find.widgetWithText(TextField, 'Email Address');
+        final passwordFinder = find.widgetWithText(TextField, 'Password');
+        final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
+
+        // Enter email and password
+        await tester.enterText(emailFinder, 'admin@example.com');
+        await tester.enterText(passwordFinder, 'superSecret123!');
+
+        // Submit form
+        await tester.tap(loginFinder);
+        await tester.pump(Duration(seconds: 1));
+
+        // Confirm token is set
+        expect(await _storage.read(key: 'aToken'), 'Mock Token');
+
+        // Re-run app
+        app.main();
+        await tester.pumpAndSettle();
+
+        // Confirm notebooks page is rendered
+        expect(find.text('Notebook 1'), findsOneWidget);
+        expect(find.text('Notebook 1 Summary'), findsOneWidget);
+
+        expect(find.text('Notebook 2'), findsOneWidget);
+
+        expect(find.text('Notebook 3'), findsOneWidget);
+        expect(find.text('Notebook 3 Summary'), findsOneWidget);
+      });
     });
 
-    testWidgets('confirm notebooks page is rendered when login is saved',
-        (WidgetTester tester) async {
-      await _storage.write(key: 'aToken', value: 'Test Token');
-      dioAdapter.onGet('/notebooks').reply(200, notebooks);
+    group('with stored token', () {
+      testWidgets('confirm notebooks page is rendered',
+          (WidgetTester tester) async {
+        await _storage.write(key: 'aToken', value: 'Test Token');
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
 
-      app.main();
-      await tester.pumpAndSettle();
+        app.main();
+        await tester.pumpAndSettle();
 
-      // Confirm cards are shown for each notebook
-      expect(find.text('Notebook 1'), findsOneWidget);
-      expect(find.text('Notebook 1 Summary'), findsOneWidget);
+        // Confirm cards are shown for each notebook
+        expect(find.text('Notebook 1'), findsOneWidget);
+        expect(find.text('Notebook 1 Summary'), findsOneWidget);
 
-      expect(find.text('Notebook 2'), findsOneWidget);
+        expect(find.text('Notebook 2'), findsOneWidget);
 
-      expect(find.text('Notebook 3'), findsOneWidget);
-      expect(find.text('Notebook 3 Summary'), findsOneWidget);
+        expect(find.text('Notebook 3'), findsOneWidget);
+        expect(find.text('Notebook 3 Summary'), findsOneWidget);
+      });
     });
   });
 }
