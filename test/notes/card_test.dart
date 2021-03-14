@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 void main() {
   group('Notes card widget', () {
     final note1 = {
-      "id": 1,
-      "content":
+      'id': 1,
+      'content':
           'Note has content for @[Character 1](@1), #[Location 2](#2), and :[Item 3](:3)'
     };
-    final note2 = {"id": 2, "content": 'X' * 151};
+    final note2 = {'id': 2, 'content': 'X' * 151};
 
     testWidgets('Rendering regex-cleaned text', (WidgetTester tester) async {
       final widget = new MediaQuery(

@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 void main() {
   group('Notables card widget', () {
     final notable1 = {
-      "id": 1,
-      "name": 'Notable 1',
-      "description": 'Description 1'
+      'id': 1,
+      'name': 'Notable 1',
+      'description': 'Description 1'
     };
-    final notable2 = {"id": 1, "name": 'Notable 2'};
+    final notable2 = {'id': 1, 'name': 'Notable 2'};
     final notable3 = {
-      "id": 1,
-      "name": 'Notable 3',
-      "description":
+      'id': 1,
+      'name': 'Notable 3',
+      'description':
           'Description that mentions @[Character 1](@1), #[Location 2](#2), and :[Item 3](:3)'
     };
-    final notable4 = {"id": 1, "name": 'Notable 4', "description": 'X' * 151};
+    final notable4 = {'id': 1, 'name': 'Notable 4', 'description': 'X' * 151};
 
     testWidgets('Rendering title and description of notable',
         (WidgetTester tester) async {

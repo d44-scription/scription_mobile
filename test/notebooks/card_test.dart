@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 void main() {
   group('Notebooks card widget', () {
-    final notebook1 = {"id": 1, "name": 'Notebook 1', "summary": "Summary 1"};
+    final notebook1 = {'id': 1, 'name': 'Notebook 1', 'summary': 'Summary 1'};
 
     final notebook2 = {
-      "id": 2,
-      "name": "Notebook 2",
+      'id': 2,
+      'name': 'Notebook 2',
     };
 
     testWidgets('Rendering title and summary of notebook',
