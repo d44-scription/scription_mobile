@@ -5,9 +5,9 @@ import 'package:scription_mobile/text-helper.dart';
 import 'package:scription_mobile/notes/show.dart';
 
 class NoteCard extends StatefulWidget {
-  NoteCard({Key key, this.note}) : super(key: key);
+  NoteCard({Key key, this.data}) : super(key: key);
 
-  final Note note;
+  final Map<String, dynamic> data;
 
   @override
   _NoteCardState createState() => _NoteCardState();
@@ -16,13 +16,15 @@ class NoteCard extends StatefulWidget {
 class _NoteCardState extends State<NoteCard> {
   @override
   Widget build(BuildContext context) {
+    Note _note = Note.fromJson(widget.data);
+
     return ListTile(
       subtitle: Text(
-          TextHelper.truncate(TextHelper.trimMentions(widget.note.content)),
+          TextHelper.truncate(TextHelper.trimMentions(_note.content)),
           style: Styles.note()),
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => Show(note: widget.note)));
+            MaterialPageRoute(builder: (context) => Show(note: _note)));
       },
     );
   }

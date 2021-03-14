@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scription_mobile/models/notable.dart';
 import 'package:scription_mobile/services/notable.service.dart';
-import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/card.dart';
 import 'package:scription_mobile/index.dart';
-import 'package:scription_mobile/constants.dart' as Constants;
 
 class Notables extends StatefulWidget {
   Notables({Key key, this.type, this.notebookId}) : super(key: key);
