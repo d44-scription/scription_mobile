@@ -42,7 +42,7 @@ class _IndexState extends State<Index> {
                       const Divider(),
                 );
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
             future: widget.callback()));
   }
