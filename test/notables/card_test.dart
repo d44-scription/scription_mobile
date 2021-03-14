@@ -5,22 +5,26 @@ import 'package:flutter/material.dart';
 
 void main() {
   group('Notables card widget', () {
-    final notable1 =
-        Notable(id: 1, name: 'Notable 1', description: 'Description 1');
-    final notable2 = Notable(id: 1, name: 'Notable 2');
-    final notable3 = Notable(
-        id: 1,
-        name: 'Notable 3',
-        description:
-            'Description that mentions @[Character 1](@1), #[Location 2](#2), and :[Item 3](:3)');
-    final notable4 = Notable(id: 1, name: 'Notable 4', description: 'X' * 151);
+    final notable1 = {
+      "id": 1,
+      "name": 'Notable 1',
+      "description": 'Description 1'
+    };
+    final notable2 = {"id": 1, "name": 'Notable 2'};
+    final notable3 = {
+      "id": 1,
+      "name": 'Notable 3',
+      "description":
+          'Description that mentions @[Character 1](@1), #[Location 2](#2), and :[Item 3](:3)'
+    };
+    final notable4 = {"id": 1, "name": 'Notable 4', "description": 'X' * 151};
 
     testWidgets('Rendering title and description of notable',
         (WidgetTester tester) async {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Scaffold(body: NotableCard(notable: notable1))));
+              home: Scaffold(body: NotableCard(data: notable1))));
 
       await tester.pumpWidget(widget);
 
@@ -37,7 +41,7 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Scaffold(body: NotableCard(notable: notable2))));
+              home: Scaffold(body: NotableCard(data: notable2))));
 
       await tester.pumpWidget(widget);
 
@@ -54,7 +58,7 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Scaffold(body: NotableCard(notable: notable3))));
+              home: Scaffold(body: NotableCard(data: notable3))));
 
       await tester.pumpWidget(widget);
 
@@ -70,7 +74,7 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Scaffold(body: NotableCard(notable: notable4))));
+              home: Scaffold(body: NotableCard(data: notable4))));
 
       await tester.pumpWidget(widget);
 
