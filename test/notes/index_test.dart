@@ -55,7 +55,7 @@ void main() {
       expect(find.text('Note 3'), findsOneWidget);
 
       // Confirm 'no notes added' text is hidden
-      expect(find.text('No notes added!'), findsNWidgets(0));
+      expect(find.text(Constants.NO_CONTENT), findsNWidgets(0));
       expect(find.text(Constants.VISIT_WEB_APP), findsNWidgets(0));
     });
 
@@ -80,7 +80,7 @@ void main() {
       expect(find.text('Note 3'), findsNWidgets(0));
 
       // Confirm 'no notes added' text is shown
-      // expect(find.text('No notes added!'), findsOneWidget);
+      // expect(find.text(Constants.NO_CONTENT), findsOneWidget);
       expect(find.text(Constants.VISIT_WEB_APP), findsOneWidget);
     });
   });

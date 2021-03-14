@@ -28,7 +28,7 @@ void main() async {
       expect(Http().aToken, '');
     });
 
-    test('when login stored by Http module', () async  {
+    test('when login stored by Http module', () async {
       Http().aToken = 'XYZ';
 
       // Confirm positive result is returned from isLoggedIn
