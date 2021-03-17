@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'
+    hide Options;
 
 class Http {
+  final _storage = new FlutterSecureStorage();
   Dio dio;
   String aToken = '';
 
@@ -25,6 +28,12 @@ class Http {
 
       dio.interceptors.requestLock.unlock();
       return options;
+    }, onError: (DioError error) async {
+      // If request returns a 401 error, remove stored auth tokens
+      if (error.response.statusCode == 401) {
+        _instance.aToken = '';
+        await _storage.delete(key: 'aToken');
+      }
     }));
   }
 }
