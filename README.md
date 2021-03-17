@@ -77,3 +77,17 @@ flutter drive \
 ```
 
 Integration tests are stored under `integration_test/` and the `target` option in the command above can be updated to point to different suites.
+
+## Deploying
+
+1. **Important**: Update the API URL in `lib/http-common.dart` to point to the target API.
+2. Created an `appbundle` build of the app using:
+
+```flutter
+$ flutter build appbundle --build-name '1.0.1' --build-number 2
+  > ✓ Built build/app/outputs/bundle/release/app-release.aab (17.9MB).
+```
+
+The `--build-name` and `--build-number` override the default values (which are "1") & must be unique for every deploy.
+
+This will create a file named `app-release.aab` found at `build/app/outputs/bundle/release/app-release.aab`. This is what is uploaded to the Google Play console following their standards & processes for deployment.
