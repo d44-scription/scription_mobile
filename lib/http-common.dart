@@ -30,10 +30,15 @@ class Http {
       return options;
     }, onError: (DioError error) async {
       // If request returns a 401 error, remove stored auth tokens
-      if (error.response.statusCode == 401) {
+      dio.interceptors.responseLock.lock();
+
+      print(error.response.statusCode);
+      if ([401, 404].contains(error.response.statusCode)) {
         _instance.aToken = '';
         await _storage.delete(key: 'aToken');
       }
+
+      dio.interceptors.requestLock.unlock();
     }));
   }
 }
