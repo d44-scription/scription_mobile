@@ -13,8 +13,7 @@ class GlobalNavigation extends StatefulWidget {
 }
 
 class _GlobalNavigationState extends State<GlobalNavigation> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildScaffold() {
     return Scaffold(
         appBar: AppBar(title: Text(widget.title ?? 'Index')),
         drawer: Drawer(
@@ -42,5 +41,18 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
           ],
         )),
         body: widget.body);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return snapshot.data ? _buildScaffold() : Login();
+          }
+
+          return CircularProgressIndicator();
+        },
+        future: AuthenticationService().isLoggedIn());
   }
 }

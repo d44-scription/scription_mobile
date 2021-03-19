@@ -32,7 +32,6 @@ class Http {
       // If request returns a 401 error, remove stored auth tokens
       dio.interceptors.responseLock.lock();
 
-      print(error.response.statusCode);
       if ([401, 404].contains(error.response.statusCode)) {
         _instance.aToken = '';
         await _storage.delete(key: 'aToken');
