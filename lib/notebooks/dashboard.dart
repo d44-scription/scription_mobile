@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scription_mobile/global-navigation.dart';
 import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/index.dart';
@@ -15,8 +16,8 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text(widget.notebook.name)),
+    return GlobalNavigation(
+        title: widget.notebook.name,
         body: Center(
             child: Padding(
                 padding: EdgeInsets.all(16),
