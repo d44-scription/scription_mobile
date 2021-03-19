@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
           .login(emailController.text, passwordController.text)
           .then((value) {
         // Navigate to notebooks view
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Notebooks()));
 
         setState(() {
