@@ -6,8 +6,8 @@ import 'package:scription_mobile/constants.dart' as Constants;
 void main() {
   group('Global index widget', () {
     final _data = [
-      {"1": "Test String 1"},
-      {"2": "Test String 2"}
+      {'1': 'Test String 1'},
+      {'2': 'Test String 2'}
     ];
 
     Widget _cardBuilder({Map<String, dynamic> data}) {

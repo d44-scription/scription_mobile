@@ -26,6 +26,11 @@ class AuthenticationService {
     }
   }
 
+  void logout() {
+    Http().aToken = '';
+    _storage.delete(key: 'aToken');
+  }
+
   Future<bool> isLoggedIn() async {
     // If http-common module already has aToken set, confirm logged in
     if (Http().aToken != '') return true;

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         // Default theme styles
         primarySwatch: Colors.orange,
         scaffoldBackgroundColor: Colors.grey[800],
+        canvasColor: Colors.grey[800],
         textTheme: Theme.of(context)
             .textTheme
             .apply(bodyColor: Colors.white, displayColor: Colors.white),

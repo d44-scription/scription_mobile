@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scription_mobile/global-navigation.dart';
 import 'package:scription_mobile/models/note.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/text-helper.dart';
@@ -14,8 +15,8 @@ class Show extends StatefulWidget {
 class _ShowState extends State<Show> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Note')),
+    return GlobalNavigation(
+      title: 'Note',
       body: Padding(
           padding: EdgeInsets.all(24),
           child: Text(TextHelper.trimMentions(widget.note.content),
