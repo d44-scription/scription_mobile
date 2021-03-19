@@ -60,6 +60,7 @@ class _LoginState extends State<Login> {
                   validator: (value) {
                     return value.isEmpty ? 'Please enter an email' : null;
                   },
+                  keyboardType: TextInputType.emailAddress,
                   onEditingComplete: node.nextFocus,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
