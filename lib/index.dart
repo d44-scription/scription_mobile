@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:scription_mobile/global-navigation.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/constants.dart' as Constants;
 
@@ -19,8 +20,8 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text(widget.title ?? 'Index')),
+    return GlobalNavigation(
+        title: widget.title,
         body: RefreshIndicator(
             onRefresh: widget.callback,
             child: FutureBuilder(
