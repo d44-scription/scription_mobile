@@ -19,13 +19,12 @@ class _NotablesState extends State<Notables> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text(widget.type)),
-        body: Index(
-            display: ({Map<String, dynamic> data}) {
-              assert(data != null);
-              return NotableCard(data: data);
-            },
-            callback: _callback));
+    return Index(
+        display: ({Map<String, dynamic> data}) {
+          assert(data != null);
+          return NotableCard(data: data);
+        },
+        callback: _callback,
+        title: widget.type);
   }
 }

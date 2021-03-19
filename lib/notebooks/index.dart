@@ -11,14 +11,12 @@ class Notebooks extends StatefulWidget {
 class _NotebooksState extends State<Notebooks> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar:
-            AppBar(title: Text('Notebooks'), automaticallyImplyLeading: false),
-        body: Index(
-            display: ({Map<String, dynamic> data}) {
-              assert(data != null);
-              return NotebookCard(data: data);
-            },
-            callback: NotebookService().index));
+    return Index(
+        display: ({Map<String, dynamic> data}) {
+          assert(data != null);
+          return NotebookCard(data: data);
+        },
+        callback: NotebookService().index,
+        title: 'Notebooks');
   }
 }

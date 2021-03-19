@@ -19,13 +19,12 @@ class _NotesState extends State<Notes> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Notes')),
-        body: Index(
-            display: ({Map<String, dynamic> data}) {
-              assert(data != null);
-              return NoteCard(data: data);
-            },
-            callback: _callback));
+    return Index(
+        display: ({Map<String, dynamic> data}) {
+          assert(data != null);
+          return NoteCard(data: data);
+        },
+        callback: _callback,
+        title: 'Notes');
   }
 }
