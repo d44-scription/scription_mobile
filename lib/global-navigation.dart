@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:scription_mobile/login.dart';
+import 'package:scription_mobile/services/authentication.service.dart';
 import 'package:scription_mobile/styles.dart';
 
 class GlobalNavigation extends StatefulWidget {
@@ -26,10 +28,15 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              leading: Icon(Icons.logout, size: 36, color: Colors.orange),
+              title: Text('Logout', style: Styles.note()),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                AuthenticationService().logout();
+
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                    (route) => false);
               },
             ),
           ],
