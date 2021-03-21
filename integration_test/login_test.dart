@@ -40,7 +40,8 @@ void main() {
 
   group('login page', () {
     group('with no stored token', () {
-      setUpAll(() async {
+      setUp(() async {
+        Http().aToken = '';
         await _storage.deleteAll();
       });
 
@@ -56,62 +57,74 @@ void main() {
         // Confirm notebooks page is not rendered
         expect(notebookFinder, findsNWidgets(0));
         expect(summaryFinder, findsNWidgets(0));
+
+        // Confirm stored token is removed
+        expect(Http().aToken, '');
+        expect(await _storage.read(key: 'aToken'), null);
       });
 
-    // FIXME: This breaks. Test this manually until a fix is found
-    //   testWidgets('storing login token when app is re-run',
-    //       (WidgetTester tester) async {
-    //     dioAdapter.onGet('/notebooks').reply(200, notebooks);
-    //     dioAdapter.onPost('/users/login').reply(200, {}, headers: {
-    //       'set-cookie': ['Mock Token']
-    //     });
+      // FIXME: This breaks. Test this manually until a fix is found
+      //   testWidgets('storing login token when app is re-run',
+      //       (WidgetTester tester) async {
+      //     dioAdapter.onGet('/notebooks').reply(200, notebooks);
+      //     dioAdapter.onPost('/users/login').reply(200, {}, headers: {
+      //       'set-cookie': ['Mock Token']
+      //     });
 
-    //     app.main();
-    //     await tester.pumpAndSettle();
+      //     app.main();
+      //     await tester.pumpAndSettle();
 
-    //     // Confirm login page is rendered
-    //     expect(emailFinder, findsOneWidget);
-    //     expect(passwordFinder, findsOneWidget);
-    //     expect(loginFinder, findsOneWidget);
+      //     // Confirm login page is rendered
+      //     expect(emailFinder, findsOneWidget);
+      //     expect(passwordFinder, findsOneWidget);
+      //     expect(loginFinder, findsOneWidget);
 
-    //     // Confirm notebooks page is not rendered
-    //     expect(notebookFinder, findsNWidgets(0));
-    //     expect(summaryFinder, findsNWidgets(0));
+      //     // Confirm notebooks page is not rendered
+      //     expect(notebookFinder, findsNWidgets(0));
+      //     expect(summaryFinder, findsNWidgets(0));
 
-    //     // Enter email and password
-    //     await tester.enterText(emailFinder, 'admin@example.com');
-    //     await tester.enterText(passwordFinder, 'superSecret123!');
+      //     // Enter email and password
+      //     await tester.enterText(emailFinder, 'admin@example.com');
+      //     await tester.enterText(passwordFinder, 'superSecret123!');
 
-    //     // Submit form
-    //     await tester.tap(loginFinder);
-    //     await tester.pump(Duration(seconds: 1));
+      //     // Submit form
+      //     await tester.tap(loginFinder);
+      //     await tester.pump(Duration(seconds: 1));
 
-    //     // Confirm token is set
-    //     expect(await _storage.read(key: 'aToken'), 'Mock Token');
+      //     // Confirm token is set
+      //     expect(await _storage.read(key: 'aToken'), 'Mock Token');
 
-    //     // Re-run app
-    //     app.main();
-    //     await tester.pumpAndSettle();
+      //     // Re-run app
+      //     app.main();
+      //     await tester.pumpAndSettle();
 
-    //     // Confirm notebooks page is rendered
-    //     expect(notebookFinder, findsOneWidget);
-    //     expect(summaryFinder, findsOneWidget);
+      //     // Confirm notebooks page is rendered
+      //     expect(notebookFinder, findsOneWidget);
+      //     expect(summaryFinder, findsOneWidget);
 
-    //     // Confirm login page is not rendered
-    //     expect(emailFinder, findsNWidgets(0));
-    //     expect(passwordFinder, findsNWidgets(0));
-    //     expect(loginFinder, findsNWidgets(0));
-    //   });
+      //     // Confirm login page is not rendered
+      //     expect(emailFinder, findsNWidgets(0));
+      //     expect(passwordFinder, findsNWidgets(0));
+      //     expect(loginFinder, findsNWidgets(0));
+      //   });
     });
 
     group('with stored token', () {
+      setUp(() async {
+        Http().aToken = 'Test Token';
+        await _storage.write(key: 'aToken', value: 'Test Token');
+      });
+
       testWidgets('confirm notebooks page is rendered',
           (WidgetTester tester) async {
-        await _storage.write(key: 'aToken', value: 'Test Token');
         dioAdapter.onGet('/notebooks').reply(200, notebooks);
 
         app.main();
         await tester.pumpAndSettle();
+
+        // Confirm token is saved
+        expect(Http().aToken, 'Test Token');
+        expect(await _storage.read(key: 'aToken'), 'Test Token');
 
         // Confirm notebooks page is rendered
         expect(notebookFinder, findsOneWidget);
@@ -123,13 +136,15 @@ void main() {
         expect(loginFinder, findsNWidgets(0));
       });
 
-      testWidgets('logging out',
-          (WidgetTester tester) async {
-        await _storage.write(key: 'aToken', value: 'Test Token');
+      testWidgets('logging out', (WidgetTester tester) async {
         dioAdapter.onGet('/notebooks').reply(200, notebooks);
 
         app.main();
         await tester.pumpAndSettle();
+
+        // Confirm token is saved
+        expect(Http().aToken, 'Test Token');
+        expect(await _storage.read(key: 'aToken'), 'Test Token');
 
         // Confirm notebooks page is rendered
         expect(notebookFinder, findsOneWidget);
@@ -162,7 +177,28 @@ void main() {
         expect(summaryFinder, findsNWidgets(0));
 
         // Confirm stored token is removed
-        expect(await _storage.read(key: 'aToken'), '');
+        expect(Http().aToken, '');
+        expect(await _storage.read(key: 'aToken'), null);
+      });
+
+      testWidgets('when request is unauthorised', (WidgetTester tester) async {
+        dioAdapter.onGet('/notebooks').reply(401, []);
+
+        app.main();
+        await tester.pumpAndSettle();
+
+        // Confirm login page is rendered
+        expect(emailFinder, findsOneWidget);
+        expect(passwordFinder, findsOneWidget);
+        expect(loginFinder, findsOneWidget);
+
+        // Confirm notebooks page is not rendered
+        expect(notebookFinder, findsNWidgets(0));
+        expect(summaryFinder, findsNWidgets(0));
+
+        // Confirm stored token is removed
+        expect(Http().aToken, '');
+        expect(await _storage.read(key: 'aToken'), null);
       });
     });
   });
