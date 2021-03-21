@@ -30,7 +30,7 @@ void main() {
 
     setUpAll(() async {
       // Sign in before all tests
-      Http().aToken = "Mock token";
+      Http().aToken = 'Mock token';
 
       // Set up mock dio adapter before all tests
       dioAdapter = DioAdapter();

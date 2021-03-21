@@ -29,7 +29,7 @@ void main() {
 
     setUpAll(() {
       // Sign in before all tests
-      Http().aToken = "Mock token";
+      Http().aToken = 'Mock token';
     });
 
     testWidgets('Rendering card for each list item',

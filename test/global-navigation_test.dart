@@ -6,7 +6,7 @@ import 'package:scription_mobile/http-common.dart';
 void main() {
   setUpAll(() {
     // Sign in before all tests
-    Http().aToken = "Mock token";
+    Http().aToken = 'Mock token';
   });
 
   group('Global navigation widget', () {
@@ -39,8 +39,7 @@ void main() {
     testWidgets('Rendering without title', (WidgetTester tester) async {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
-          child: new MaterialApp(
-              home: GlobalNavigation(body: bodyWidget)));
+          child: new MaterialApp(home: GlobalNavigation(body: bodyWidget)));
 
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();

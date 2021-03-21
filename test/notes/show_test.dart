@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 void main() {
   setUpAll(() {
     // Sign in before all tests
-    Http().aToken = "Mock token";
+    Http().aToken = 'Mock token';
   });
 
   group('Notes show widget', () {
