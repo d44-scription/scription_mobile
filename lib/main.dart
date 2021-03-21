@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/login.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Scription',
+      navigatorKey: Http().navigatorKey,
       theme: ThemeData(
         // Default theme styles
         primarySwatch: Colors.orange,
