@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/index.dart';
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/constants.dart' as Constants;
@@ -26,6 +27,11 @@ void main() {
       return Future.delayed(Duration(milliseconds: 1), () => []);
     }
 
+    setUpAll(() {
+      // Sign in before all tests
+      Http().aToken = "Mock token";
+    });
+
     testWidgets('Rendering card for each list item',
         (WidgetTester tester) async {
       final widget = new MediaQuery(
@@ -37,7 +43,7 @@ void main() {
           )));
 
       await tester.pumpWidget(widget);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       // Confirm cards are shown for each notebook
       expect(find.text('Test String 1'), findsOneWidget);
@@ -58,7 +64,7 @@ void main() {
           )));
 
       await tester.pumpWidget(widget);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       // Confirm cards are shown for each notebook
       expect(find.text('Test String 1'), findsNWidgets(0));

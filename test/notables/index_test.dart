@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/constants.dart' as Constants;
+import 'package:scription_mobile/services/authentication.service.dart';
 
 void main() {
   group('Notables index widget', () {
@@ -27,7 +28,10 @@ void main() {
       }
     ];
 
-    setUpAll(() {
+    setUpAll(() async {
+      // Sign in before all tests
+      Http().aToken = "Mock token";
+
       // Set up mock dio adapter before all tests
       dioAdapter = DioAdapter();
 
@@ -47,7 +51,7 @@ void main() {
                 home: Notables(type: 'Characters', notebookId: notebookId)));
 
         await tester.pumpWidget(widget);
-        await tester.pump(Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         expect(find.text('Characters'), findsOneWidget);
 
@@ -74,7 +78,7 @@ void main() {
                 home: Notables(type: 'Characters', notebookId: notebookId)));
 
         await tester.pumpWidget(widget);
-        await tester.pump(Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         expect(find.text('Characters'), findsOneWidget);
 
@@ -106,7 +110,7 @@ void main() {
                 home: Notables(type: 'Locations', notebookId: notebookId)));
 
         await tester.pumpWidget(widget);
-        await tester.pump(Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         expect(find.text('Locations'), findsOneWidget);
 
@@ -133,7 +137,7 @@ void main() {
                 home: Notables(type: 'Locations', notebookId: notebookId)));
 
         await tester.pumpWidget(widget);
-        await tester.pump(Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         expect(find.text('Locations'), findsOneWidget);
 
@@ -163,7 +167,7 @@ void main() {
                 home: Notables(type: 'Items', notebookId: notebookId)));
 
         await tester.pumpWidget(widget);
-        await tester.pump(Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         expect(find.text('Items'), findsOneWidget);
 
@@ -190,7 +194,7 @@ void main() {
                 home: Notables(type: 'Items', notebookId: notebookId)));
 
         await tester.pumpWidget(widget);
-        await tester.pump(Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         expect(find.text('Items'), findsOneWidget);
 

@@ -28,6 +28,9 @@ void main() {
     ];
 
     setUpAll(() {
+      // Sign in before all tests
+      Http().aToken = "Mock token";
+
       // Set up mock dio adapter before all tests
       dioAdapter = DioAdapter();
 
@@ -45,7 +48,7 @@ void main() {
               home: Notes(notebookId: notebookId, notableId: notableId)));
 
       await tester.pumpWidget(widget);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect(find.text('Notes'), findsOneWidget);
 
@@ -70,7 +73,7 @@ void main() {
               home: Notes(notebookId: notebookId, notableId: notableId)));
 
       await tester.pumpWidget(widget);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect(find.text('Notes'), findsOneWidget);
 

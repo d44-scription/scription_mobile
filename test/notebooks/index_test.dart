@@ -27,6 +27,9 @@ void main() {
     ];
 
     setUpAll(() {
+      // Sign in before all tests
+      Http().aToken = "Mock token";
+
       // Set up mock dio adapter before all tests
       dioAdapter = DioAdapter();
 
@@ -42,7 +45,7 @@ void main() {
           child: new MaterialApp(home: Notebooks()));
 
       await tester.pumpWidget(widget);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect(find.text('Notebooks'), findsOneWidget);
 
@@ -68,7 +71,7 @@ void main() {
           child: new MaterialApp(home: Notebooks()));
 
       await tester.pumpWidget(widget);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect(find.text('Notebooks'), findsOneWidget);
 
