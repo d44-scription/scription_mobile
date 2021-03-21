@@ -1,8 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'
+    hide Options;
+import 'package:scription_mobile/login.dart';
 
 class Http {
+  final _storage = new FlutterSecureStorage();
   Dio dio;
   String aToken = '';
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
 
   final BaseOptions options = new BaseOptions(
     baseUrl: 'https://scription-api-staging.herokuapp.com/api/v1',
@@ -25,6 +32,19 @@ class Http {
 
       dio.interceptors.requestLock.unlock();
       return options;
+    }, onError: (DioError error) async {
+      // If request returns a 401 error, remove stored auth tokens
+      dio.interceptors.responseLock.lock();
+
+      if ([401, 404].contains(error.response.statusCode)) {
+        _instance.aToken = '';
+        await _storage.delete(key: 'aToken');
+
+        navigatorKey.currentState.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login()), (route) => false);
+      }
+
+      dio.interceptors.requestLock.unlock();
     }));
   }
 }

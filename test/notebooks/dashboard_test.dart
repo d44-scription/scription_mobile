@@ -1,9 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/notebooks/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setUpAll(() {
+    // Sign in before all tests
+    Http().aToken = 'Mock token';
+  });
+
   group('Notebooks dashboard widget', () {
     final notebook1 = Notebook(id: 1, name: 'Notebook 1', summary: 'Summary 1');
     final notebook2 = Notebook(id: 1, name: 'Notebook 2');
@@ -18,6 +24,7 @@ void main() {
           )));
 
       await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
 
       // Confirm title and summary are both shown
       expect(find.text('Notebook 1'), findsOneWidget);
@@ -47,6 +54,7 @@ void main() {
           )));
 
       await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
 
       // Confirm it renders without summary
       expect(find.text('Notebook 2'), findsOneWidget);

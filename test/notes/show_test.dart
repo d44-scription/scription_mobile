@@ -1,9 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/models/note.dart';
 import 'package:scription_mobile/notes/show.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setUpAll(() {
+    // Sign in before all tests
+    Http().aToken = 'Mock token';
+  });
+
   group('Notes show widget', () {
     final note1 = Note(
         id: 1,
@@ -17,6 +23,7 @@ void main() {
           child: new MaterialApp(home: Show(note: note1)));
 
       await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
 
       // Confirm content is shown with mentions removed
       expect(
@@ -30,6 +37,7 @@ void main() {
           child: new MaterialApp(home: Show(note: note2)));
 
       await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
 
       // Confirm content is show untruncated
       expect(find.text('X' * 151), findsOneWidget);
