@@ -61,6 +61,7 @@ class _LoginState extends State<Login> {
                     return value.isEmpty ? 'Please enter an email' : null;
                   },
                   keyboardType: TextInputType.emailAddress,
+                  autofillHints: [AutofillHints.email],
                   onEditingComplete: node.nextFocus,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
@@ -73,6 +74,7 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
+                  autofillHints: [AutofillHints.password],
                   validator: (value) {
                     return value.isEmpty ? 'Please enter a password' : null;
                   },
