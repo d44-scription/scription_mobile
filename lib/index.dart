@@ -31,8 +31,8 @@ class _IndexState extends State<Index> {
                       return Padding(
                           padding: EdgeInsets.all(16.0),
                           child: Column(children: [
-                            Text(Constants.NO_CONTENT, style: Styles.title()),
-                            Divider(),
+                            Text(Constants.NO_CONTENT, style: Styles.errorTitle()),
+                            Divider(color: Colors.red[300]),
                             Text(Constants.VISIT_WEB_APP, style: Styles.body())
                           ]));
                     }
