@@ -5,6 +5,10 @@ class Styles {
     return TextStyle(fontSize: 24, color: Colors.orangeAccent);
   }
 
+  static TextStyle errorTitle() {
+    return TextStyle(fontSize: 24, color: Colors.red[300]);
+  }
+
   static TextStyle darkHeader() {
     return TextStyle(fontSize: 24, color: Colors.grey[800]);
   }
