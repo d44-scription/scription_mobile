@@ -34,7 +34,8 @@ class _DashboardState extends State<Dashboard> {
                               MaterialPageRoute(
                                   builder: (context) => Notables(
                                       type: 'Characters',
-                                      notebookId: widget.notebook.id)));
+                                      notebookId: widget.notebook.id,
+                                      notebookName: widget.notebook.name)));
                         },
                         subtitle: Text(
                             'View characters for ${widget.notebook.name}')),
@@ -48,7 +49,8 @@ class _DashboardState extends State<Dashboard> {
                               MaterialPageRoute(
                                   builder: (context) => Notables(
                                       type: 'Locations',
-                                      notebookId: widget.notebook.id)));
+                                      notebookId: widget.notebook.id,
+                                      notebookName: widget.notebook.name)));
                         },
                         subtitle:
                             Text('View locations for ${widget.notebook.name}')),
@@ -62,7 +64,8 @@ class _DashboardState extends State<Dashboard> {
                               MaterialPageRoute(
                                   builder: (context) => Notables(
                                       type: 'Items',
-                                      notebookId: widget.notebook.id)));
+                                      notebookId: widget.notebook.id,
+                                      notebookName: widget.notebook.name)));
                         },
                         subtitle:
                             Text('View items for ${widget.notebook.name}')),

@@ -4,9 +4,10 @@ import 'package:scription_mobile/services/note.service.dart';
 import 'package:scription_mobile/index.dart';
 
 class Notes extends StatefulWidget {
-  Notes({Key key, this.notebookId, this.notableId}) : super(key: key);
+  Notes({Key key, this.notebookId, this.notableId, this.notableName}) : super(key: key);
   final int notebookId;
   final int notableId;
+  final String notableName;
 
   @override
   _NotesState createState() => _NotesState();
@@ -25,6 +26,6 @@ class _NotesState extends State<Notes> {
           return NoteCard(data: data);
         },
         callback: _callback,
-        title: 'Notes');
+        title: '${widget.notableName} | Notes');
   }
 }
