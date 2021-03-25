@@ -28,11 +28,13 @@ void main() {
 
       expect(find.text(title), findsOneWidget);
       expect(find.text(body), findsOneWidget);
+      expect(find.text('Notebooks'), findsNWidgets(0));
       expect(find.text('Logout'), findsNWidgets(0));
 
       await tester.tap(drawerFinder);
       await tester.pumpWidget(widget);
 
+      expect(find.text('Notebooks'), findsOneWidget);
       expect(find.text('Logout'), findsOneWidget);
     });
 
@@ -47,6 +49,7 @@ void main() {
       expect(find.text('Index'), findsOneWidget);
       expect(find.text(body), findsOneWidget);
       expect(find.text(title), findsNWidgets(0));
+      expect(find.text('Notebooks'), findsNWidgets(0));
       expect(find.text('Logout'), findsNWidgets(0));
     });
   });
