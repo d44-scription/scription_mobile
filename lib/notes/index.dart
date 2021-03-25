@@ -4,7 +4,8 @@ import 'package:scription_mobile/services/note.service.dart';
 import 'package:scription_mobile/index.dart';
 
 class Notes extends StatefulWidget {
-  Notes({Key key, this.notebookId, this.notableId, this.notableName}) : super(key: key);
+  Notes({Key key, this.notebookId, this.notableId, this.notableName})
+      : super(key: key);
   final int notebookId;
   final int notableId;
   final String notableName;
