@@ -50,47 +50,49 @@ class _LoginState extends State<Login> {
     return Scaffold(
         appBar: AppBar(title: Text('Scription')),
         body: Padding(
-          padding: EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: emailController,
-                  validator: (value) {
-                    return value.isEmpty ? 'Please enter an email' : null;
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  autofillHints: [AutofillHints.email],
-                  onEditingComplete: node.nextFocus,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                      labelText: 'Email Address',
-                      icon: Icon(Icons.alternate_email, color: Colors.orange),
-                      labelStyle: TextStyle(color: Colors.white60)),
+            padding: EdgeInsets.all(16),
+            child: Form(
+              key: _formKey,
+              child: AutofillGroup(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: emailController,
+                      validator: (value) {
+                        return value.isEmpty ? 'Please enter an email' : null;
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      autofillHints: [AutofillHints.email],
+                      onEditingComplete: node.nextFocus,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                          labelText: 'Email Address',
+                          icon:
+                              Icon(Icons.alternate_email, color: Colors.orange),
+                          labelStyle: TextStyle(color: Colors.white60)),
+                    ),
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      autofillHints: [AutofillHints.password],
+                      validator: (value) {
+                        return value.isEmpty ? 'Please enter a password' : null;
+                      },
+                      onEditingComplete: _login,
+                      decoration: const InputDecoration(
+                          labelText: 'Password',
+                          icon: Icon(Icons.lock, color: Colors.orange),
+                          labelStyle: TextStyle(color: Colors.white60)),
+                    ),
+                    ElevatedButton(
+                      onPressed: _isLoginDisabled ? null : _login,
+                      child: Text('Login'),
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  autofillHints: [AutofillHints.password],
-                  validator: (value) {
-                    return value.isEmpty ? 'Please enter a password' : null;
-                  },
-                  onEditingComplete: _login,
-                  decoration: const InputDecoration(
-                      labelText: 'Password',
-                      icon: Icon(Icons.lock, color: Colors.orange),
-                      labelStyle: TextStyle(color: Colors.white60)),
-                ),
-                ElevatedButton(
-                  onPressed: _isLoginDisabled ? null : _login,
-                  child: Text('Login'),
-                ),
-              ],
-            ),
-          ),
-        ));
+              ),
+            )));
   }
 }
