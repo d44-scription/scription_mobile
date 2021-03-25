@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/constants.dart' as Constants;
-import 'package:scription_mobile/services/authentication.service.dart';
 
 void main() {
   group('Notables index widget', () {
     DioAdapter dioAdapter;
 
-    final notebookId = 1;
+    final int notebookId = 1;
+    final String notebookName = 'Notebook';
+
     final notables = [
       {
         'id': 1,
@@ -48,12 +49,15 @@ void main() {
         final widget = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: Notables(type: 'Characters', notebookId: notebookId)));
+                home: Notables(
+                    type: 'Characters',
+                    notebookId: notebookId,
+                    notebookName: notebookName)));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
 
-        expect(find.text('Characters'), findsOneWidget);
+        expect(find.text('$notebookName | Characters'), findsOneWidget);
 
         // Confirm cards are shown for each notable
         expect(find.text('Notable 1'), findsOneWidget);
@@ -75,12 +79,15 @@ void main() {
         final widget = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: Notables(type: 'Characters', notebookId: notebookId)));
+                home: Notables(
+                    type: 'Characters',
+                    notebookId: notebookId,
+                    notebookName: notebookName)));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
 
-        expect(find.text('Characters'), findsOneWidget);
+        expect(find.text('$notebookName | Characters'), findsOneWidget);
 
         // Confirm no cards are rendered
         expect(find.text('Notable 1'), findsNWidgets(0));
@@ -107,12 +114,15 @@ void main() {
         final widget = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: Notables(type: 'Locations', notebookId: notebookId)));
+                home: Notables(
+                    type: 'Locations',
+                    notebookId: notebookId,
+                    notebookName: notebookName)));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
 
-        expect(find.text('Locations'), findsOneWidget);
+        expect(find.text('$notebookName | Locations'), findsOneWidget);
 
         // Confirm cards are shown for each notable
         expect(find.text('Notable 1'), findsOneWidget);
@@ -134,12 +144,15 @@ void main() {
         final widget = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: Notables(type: 'Locations', notebookId: notebookId)));
+                home: Notables(
+                    type: 'Locations',
+                    notebookId: notebookId,
+                    notebookName: notebookName)));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
 
-        expect(find.text('Locations'), findsOneWidget);
+        expect(find.text('$notebookName | Locations'), findsOneWidget);
 
         // Confirm no cards are rendered
         expect(find.text('Notable 1'), findsNWidgets(0));
@@ -164,12 +177,15 @@ void main() {
         final widget = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: Notables(type: 'Items', notebookId: notebookId)));
+                home: Notables(
+                    type: 'Items',
+                    notebookId: notebookId,
+                    notebookName: notebookName)));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
 
-        expect(find.text('Items'), findsOneWidget);
+        expect(find.text('$notebookName | Items'), findsOneWidget);
 
         // Confirm cards are shown for each notable
         expect(find.text('Notable 1'), findsOneWidget);
@@ -191,12 +207,15 @@ void main() {
         final widget = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: Notables(type: 'Items', notebookId: notebookId)));
+                home: Notables(
+                    type: 'Items',
+                    notebookId: notebookId,
+                    notebookName: notebookName)));
 
         await tester.pumpWidget(widget);
         await tester.pumpAndSettle();
 
-        expect(find.text('Items'), findsOneWidget);
+        expect(find.text('$notebookName | Items'), findsOneWidget);
 
         // Confirm no cards are rendered
         expect(find.text('Notable 1'), findsNWidgets(0));
