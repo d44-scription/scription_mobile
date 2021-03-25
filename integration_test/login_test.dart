@@ -21,7 +21,12 @@ void main() {
   final summaryFinder = find.text('Test Summary');
 
   final drawerFinder = find.byTooltip('Open navigation menu');
+  final notebooksFinder = find.text('Notebooks');
   final logoutFinder = find.text('Logout');
+
+  final charactersFinder = find.text('Characters');
+  final locationsFinder = find.text('Locations');
+  final itemsFinder = find.text('Items');
 
   final notebooks = [
     {
@@ -161,6 +166,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Confirm drawer is rendered
+        expect(notebooksFinder, findsNWidgets(2));
         expect(logoutFinder, findsOneWidget);
 
         // Tap logout button
@@ -179,6 +185,64 @@ void main() {
         // Confirm stored token is removed
         expect(Http().aToken, '');
         expect(await _storage.read(key: 'aToken'), null);
+      });
+
+      testWidgets('navigation', (WidgetTester tester) async {
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+
+        app.main();
+        await tester.pumpAndSettle();
+
+        // Confirm token is saved
+        expect(Http().aToken, 'Test Token');
+        expect(await _storage.read(key: 'aToken'), 'Test Token');
+
+        // Confirm notebooks page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
+
+        // Confirm dashboard page is not rendered
+        expect(charactersFinder, findsNWidgets(0));
+        expect(locationsFinder, findsNWidgets(0));
+        expect(itemsFinder, findsNWidgets(0));
+
+        // Tap notebook list item
+        await tester.tap(notebookFinder);
+        await tester.pumpAndSettle();
+
+        // Confirm dashboard page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
+        expect(charactersFinder, findsOneWidget);
+        expect(locationsFinder, findsOneWidget);
+        expect(itemsFinder, findsOneWidget);
+
+        // Tap drawer sandwich icon
+        await tester.tap(drawerFinder);
+        await tester.pumpAndSettle();
+
+        // Confirm drawer is rendered
+        expect(notebooksFinder, findsOneWidget);
+        expect(logoutFinder, findsOneWidget);
+
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+
+        // Tap notebooks button
+        await tester.tap(notebooksFinder);
+        await tester.pumpAndSettle();
+
+        // Confirm notebooks page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
+
+        // Confirm dashboard page is not rendered
+        expect(charactersFinder, findsNWidgets(0));
+        expect(locationsFinder, findsNWidgets(0));
+        expect(itemsFinder, findsNWidgets(0));
+
+        // Confirm stored token is unchanged
+        expect(Http().aToken, 'Test Token');
+        expect(await _storage.read(key: 'aToken'), 'Test Token');
       });
 
       testWidgets('when request is unauthorised', (WidgetTester tester) async {

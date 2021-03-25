@@ -9,8 +9,9 @@ void main() {
   group('Notes index widget', () {
     DioAdapter dioAdapter;
 
-    final notebookId = 1;
-    final notableId = 2;
+    final int notebookId = 1;
+    final int notableId = 2;
+    final String notableName = 'Notable';
 
     final notes = [
       {
@@ -45,12 +46,15 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Notes(notebookId: notebookId, notableId: notableId)));
+              home: Notes(
+                  notebookId: notebookId,
+                  notableId: notableId,
+                  notableName: notableName)));
 
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
 
-      expect(find.text('Notes'), findsOneWidget);
+      expect(find.text('$notableName | Notes'), findsOneWidget);
 
       // Confirm cards are shown for each note
       expect(find.text('Note 1'), findsOneWidget);
@@ -70,12 +74,15 @@ void main() {
       final widget = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
-              home: Notes(notebookId: notebookId, notableId: notableId)));
+              home: Notes(
+                  notebookId: notebookId,
+                  notableId: notableId,
+                  notableName: notableName)));
 
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
 
-      expect(find.text('Notes'), findsOneWidget);
+      expect(find.text('$notableName | Notes'), findsOneWidget);
 
       // Confirm no cards are rendered
       expect(find.text('Note 1'), findsNWidgets(0));

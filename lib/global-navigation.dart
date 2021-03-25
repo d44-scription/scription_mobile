@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/login.dart';
+import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
 import 'package:scription_mobile/styles.dart';
 
@@ -25,6 +26,16 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
               decoration: BoxDecoration(
                 color: Colors.orange,
               ),
+            ),
+            ListTile(
+              leading: Icon(Icons.auto_stories, size: 36, color: Colors.orange),
+              title: Text('Notebooks', style: Styles.note()),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => Notebooks()),
+                    (route) => false);
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout, size: 36, color: Colors.orange),

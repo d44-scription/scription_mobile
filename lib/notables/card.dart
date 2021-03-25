@@ -29,7 +29,9 @@ class _NotableCardState extends State<NotableCard> {
             context,
             MaterialPageRoute(
                 builder: (context) => Notes(
-                    notableId: _notable.id, notebookId: _notable.notebookId)));
+                    notableId: _notable.id,
+                    notebookId: _notable.notebookId,
+                    notableName: _notable.name)));
       },
     );
   }
