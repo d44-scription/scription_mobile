@@ -9,6 +9,10 @@ const String ENTER_EMAIL = 'Please enter an email';
 const String PASSWORD = 'Password';
 const String ENTER_PASSWORD = 'Please enter a password';
 const String LOGIN = 'Log In';
+const String LOGOUT = 'Log Out';
 
 const String NO_ACCOUNT = 'Don\'t have an account?';
 const String GET_STARTED = 'Visit the Scription web app to get started';
+
+const String LOGGED_OUT = 'Successfully logged out';
+const String UNAUTHORISED = 'Your authentication token has expired; please sign in again';

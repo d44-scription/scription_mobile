@@ -24,7 +24,9 @@ void main() {
 
   final drawerFinder = find.byTooltip('Open navigation menu');
   final notebooksFinder = find.text('Notebooks');
-  final logoutFinder = find.text('Logout');
+  final logoutFinder = find.text(Constants.LOGOUT);
+  final loggedOutFinder = find.text(Constants.LOGGED_OUT);
+  final unauthorisedFinder = find.text(Constants.UNAUTHORISED);
 
   final charactersFinder = find.text('Characters');
   final locationsFinder = find.text('Locations');
@@ -225,6 +227,7 @@ void main() {
         expect(emailFinder, findsOneWidget);
         expect(passwordFinder, findsOneWidget);
         expect(loginFinder, findsOneWidget);
+        expect(loggedOutFinder, findsOneWidget);
 
         // Confirm notebooks page is not rendered
         expect(notebookFinder, findsNWidgets(0));
@@ -303,6 +306,7 @@ void main() {
         expect(emailFinder, findsOneWidget);
         expect(passwordFinder, findsOneWidget);
         expect(loginFinder, findsOneWidget);
+        expect(unauthorisedFinder, findsOneWidget);
 
         // Confirm notebooks page is not rendered
         expect(notebookFinder, findsNWidgets(0));

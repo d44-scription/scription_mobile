@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:scription_mobile/global-navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/http-common.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 void main() {
   setUpAll(() {
@@ -29,13 +30,13 @@ void main() {
       expect(find.text(title), findsOneWidget);
       expect(find.text(body), findsOneWidget);
       expect(find.text('Notebooks'), findsNWidgets(0));
-      expect(find.text('Logout'), findsNWidgets(0));
+      expect(find.text(Constants.LOGOUT), findsNWidgets(0));
 
       await tester.tap(drawerFinder);
       await tester.pumpWidget(widget);
 
       expect(find.text('Notebooks'), findsOneWidget);
-      expect(find.text('Logout'), findsOneWidget);
+      expect(find.text(Constants.LOGOUT), findsOneWidget);
     });
 
     testWidgets('Rendering without title', (WidgetTester tester) async {
@@ -50,7 +51,7 @@ void main() {
       expect(find.text(body), findsOneWidget);
       expect(find.text(title), findsNWidgets(0));
       expect(find.text('Notebooks'), findsNWidgets(0));
-      expect(find.text('Logout'), findsNWidgets(0));
+      expect(find.text(Constants.LOGOUT), findsNWidgets(0));
     });
   });
 }
