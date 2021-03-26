@@ -17,6 +17,7 @@ void main() {
   final emailFinder = find.widgetWithText(TextField, Constants.EMAIL);
   final passwordFinder = find.widgetWithText(TextField, Constants.PASSWORD);
   final loginFinder = find.widgetWithText(ElevatedButton, Constants.LOGIN);
+  final errorFinder = find.widgetWithText(SnackBar, 'Test Error Message');
 
   final notebookFinder = find.text('Test Notebook');
   final summaryFinder = find.text('Test Summary');
@@ -37,7 +38,7 @@ void main() {
     }
   ];
 
-  final error = {'errors': 'Test Error Message'};
+  final error = {'errors': 'Test Error Message', 'statusCode': 422};
 
   setUpAll(() {
     // Set up mock dio adapter before all tests
@@ -69,6 +70,49 @@ void main() {
         // Confirm stored token is removed
         expect(Http().aToken, '');
         expect(await _storage.read(key: 'aToken'), null);
+      });
+
+      testWidgets('successfully logs in after a failed attempt',
+          (WidgetTester tester) async {
+        app.main();
+        await tester.pumpAndSettle();
+
+        // Confirm login page is rendered
+        expect(emailFinder, findsOneWidget);
+        expect(passwordFinder, findsOneWidget);
+        expect(loginFinder, findsOneWidget);
+
+        // Confirm stored token is removed
+        expect(Http().aToken, '');
+        expect(await _storage.read(key: 'aToken'), null);
+
+        // Reject login
+        dioAdapter.onPost('/users/login').reply(422, error);
+
+        // Enter email and password
+        await tester.enterText(emailFinder, 'admin@example.com');
+        await tester.enterText(passwordFinder, 'superSecret123!');
+
+        // Submit form
+        await tester.tap(loginFinder);
+        await tester.pumpAndSettle();
+
+        // Confirm error is shown
+        expect(errorFinder, findsOneWidget);
+
+        // Accept login
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+        dioAdapter.onPost('/users/login').reply(200, {}, headers: {
+          'set-cookie': ['Mock Token']
+        });
+
+        // Submit form
+        await tester.tap(loginFinder);
+        await tester.pumpAndSettle();
+
+        // Confirm notebooks page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
       });
 
       testWidgets('storing login token when app is re-run',
