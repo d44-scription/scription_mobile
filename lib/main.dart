@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
               return snapshot.data ? Notebooks() : Login();
             }
 
-            return CircularProgressIndicator();
+            return Scaffold(body: CircularProgressIndicator());
           },
           future: AuthenticationService().isLoggedIn()),
     );
