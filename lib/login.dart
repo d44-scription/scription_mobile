@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
 import 'package:scription_mobile/styles.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class Login extends StatefulWidget {
   @override
@@ -49,7 +50,7 @@ class _LoginState extends State<Login> {
     final node = FocusScope.of(context);
 
     return Scaffold(
-        appBar: AppBar(title: Text('Scription')),
+        appBar: AppBar(title: Text(Constants.TITLE)),
         body: Padding(
             padding: EdgeInsets.all(16),
             child: Form(
@@ -60,14 +61,14 @@ class _LoginState extends State<Login> {
                     TextFormField(
                       controller: emailController,
                       validator: (value) {
-                        return value.isEmpty ? 'Please enter an email' : null;
+                        return value.isEmpty ? Constants.ENTER_EMAIL : null;
                       },
                       keyboardType: TextInputType.emailAddress,
                       autofillHints: [AutofillHints.email],
                       onEditingComplete: node.nextFocus,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                          labelText: 'Email Address',
+                          labelText: Constants.EMAIL,
                           icon:
                               Icon(Icons.alternate_email, color: Colors.orange),
                           labelStyle: TextStyle(color: Colors.white60)),
@@ -79,11 +80,11 @@ class _LoginState extends State<Login> {
                       autocorrect: false,
                       autofillHints: [AutofillHints.password],
                       validator: (value) {
-                        return value.isEmpty ? 'Please enter a password' : null;
+                        return value.isEmpty ? Constants.ENTER_PASSWORD : null;
                       },
                       onEditingComplete: _login,
                       decoration: const InputDecoration(
-                          labelText: 'Password',
+                          labelText: Constants.PASSWORD,
                           icon: Icon(Icons.lock, color: Colors.orange),
                           labelStyle: TextStyle(color: Colors.white60)),
                     ),
@@ -91,12 +92,12 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.only(top: 16, bottom: 16),
                         child: ElevatedButton(
                             onPressed: _isLoginDisabled ? null : _login,
-                            child: Text('Log In'),
+                            child: Text(Constants.LOGIN),
                             style: ElevatedButton.styleFrom(
                                 minimumSize: Size(200, 36)))),
-                    Text('Don\'t have an account?',
+                    Text(Constants.NO_ACCOUNT,
                         style: Styles.title(), textAlign: TextAlign.center),
-                    Text('Visit the Scription web app to get started',
+                    Text(Constants.GET_STARTED,
                         style: Styles.body(), textAlign: TextAlign.center)
                   ],
                 ),

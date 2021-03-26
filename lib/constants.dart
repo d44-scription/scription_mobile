@@ -1,3 +1,14 @@
 const String NO_CONTENT = 'No content added!';
 const String VISIT_WEB_APP =
     'Please visit the Scription Web App to set up your content';
+
+const String TITLE = 'Scription';
+
+const String EMAIL = 'Email Address';
+const String ENTER_EMAIL = 'Please enter an email';
+const String PASSWORD = 'Password';
+const String ENTER_PASSWORD = 'Please enter a password';
+const String LOGIN = 'Log In';
+
+const String NO_ACCOUNT = 'Don\'t have an account?';
+const String GET_STARTED = 'Visit the Scription web app to get started';
