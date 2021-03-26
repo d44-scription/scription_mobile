@@ -3,6 +3,7 @@ import 'package:scription_mobile/login.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
 import 'package:scription_mobile/styles.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class GlobalNavigation extends StatefulWidget {
   GlobalNavigation({Key key, this.body, this.title}) : super(key: key);
@@ -22,7 +23,7 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
           padding: EdgeInsets.all(0),
           children: <Widget>[
             DrawerHeader(
-              child: Text('Scription', style: Styles.darkHeader()),
+              child: Text(Constants.TITLE, style: Styles.darkHeader()),
               decoration: BoxDecoration(
                 color: Colors.orange,
               ),
@@ -39,13 +40,15 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
             ),
             ListTile(
               leading: Icon(Icons.logout, size: 36, color: Colors.orange),
-              title: Text('Logout', style: Styles.note()),
+              title: Text(Constants.LOGOUT, style: Styles.note()),
               onTap: () {
                 AuthenticationService().logout();
 
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => Login()),
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Login(message: Constants.LOGGED_OUT)),
                     (route) => false);
               },
             ),

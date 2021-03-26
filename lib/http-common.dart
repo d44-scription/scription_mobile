@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'
     hide Options;
 import 'package:scription_mobile/login.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class Http {
   final _storage = new FlutterSecureStorage();
@@ -41,7 +42,9 @@ class Http {
         await _storage.delete(key: 'aToken');
 
         navigatorKey.currentState.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Login()), (route) => false);
+            MaterialPageRoute(
+                builder: (context) => Login(message: Constants.UNAUTHORISED)),
+            (route) => false);
       }
 
       dio.interceptors.errorLock.unlock();
