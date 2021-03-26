@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
+import 'package:scription_mobile/styles.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -86,10 +87,17 @@ class _LoginState extends State<Login> {
                           icon: Icon(Icons.lock, color: Colors.orange),
                           labelStyle: TextStyle(color: Colors.white60)),
                     ),
-                    ElevatedButton(
-                      onPressed: _isLoginDisabled ? null : _login,
-                      child: Text('Login'),
-                    ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 16, bottom: 16),
+                        child: ElevatedButton(
+                            onPressed: _isLoginDisabled ? null : _login,
+                            child: Text('Log In'),
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: Size(200, 36)))),
+                    Text('Don\'t have an account?',
+                        style: Styles.title(), textAlign: TextAlign.center),
+                    Text('Visit the Scription web app to get started',
+                        style: Styles.body(), textAlign: TextAlign.center)
                   ],
                 ),
               ),
