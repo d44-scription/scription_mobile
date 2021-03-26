@@ -12,7 +12,7 @@ class Http {
       new GlobalKey<NavigatorState>();
 
   final BaseOptions options = new BaseOptions(
-    baseUrl: 'https://scription-api.herokuapp.com/api/v1',
+    baseUrl: 'https://scription-api-staging.herokuapp.com/api/v1',
     connectTimeout: 15000,
     receiveTimeout: 13000,
   );
