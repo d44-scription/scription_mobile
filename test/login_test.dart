@@ -8,8 +8,12 @@ import 'package:scription_mobile/constants.dart' as Constants;
 void main() {
   group('Login widget', () {
     DioAdapter dioAdapter;
-    final widget = new MediaQuery(
-        data: new MediaQueryData(), child: new MaterialApp(home: Login()));
+
+    final emailFinder = find.widgetWithText(TextField, Constants.EMAIL);
+    final passwordFinder = find.widgetWithText(TextField, Constants.PASSWORD);
+    final loginFinder = find.widgetWithText(ElevatedButton, Constants.LOGIN);
+    final noAccountFinder = find.text(Constants.NO_ACCOUNT);
+    final getStartedFinder = find.text(Constants.GET_STARTED);
 
     final error = {'errors': 'Test Error Message'};
 
@@ -20,14 +24,10 @@ void main() {
       Http().dio.httpClientAdapter = dioAdapter;
     });
 
-    testWidgets('Login widget', (WidgetTester tester) async {
+    testWidgets('rendering correct widgets', (WidgetTester tester) async {
+      final widget = new MediaQuery(
+          data: new MediaQueryData(), child: new MaterialApp(home: Login()));
       await tester.pumpWidget(widget);
-
-      final emailFinder = find.widgetWithText(TextField, Constants.EMAIL);
-      final passwordFinder = find.widgetWithText(TextField, Constants.PASSWORD);
-      final loginFinder = find.widgetWithText(ElevatedButton, Constants.LOGIN);
-      final noAccountFinder = find.text(Constants.NO_ACCOUNT);
-      final getStartedFinder = find.text(Constants.GET_STARTED);
 
       expect(emailFinder, findsOneWidget);
       expect(passwordFinder, findsOneWidget);
@@ -36,14 +36,27 @@ void main() {
       expect(getStartedFinder, findsOneWidget);
     });
 
+    testWidgets('rendering with a message', (WidgetTester tester) async {
+      final widget = new MediaQuery(
+          data: new MediaQueryData(),
+          child: new MaterialApp(home: Login(message: 'Test Message')));
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      expect(emailFinder, findsOneWidget);
+      expect(passwordFinder, findsOneWidget);
+      expect(loginFinder, findsOneWidget);
+      expect(noAccountFinder, findsOneWidget);
+      expect(getStartedFinder, findsOneWidget);
+      expect(find.text('Test Message'), findsOneWidget);
+    });
+
     testWidgets('On unsuccessful login', (WidgetTester tester) async {
+      final widget = new MediaQuery(
+          data: new MediaQueryData(), child: new MaterialApp(home: Login()));
       dioAdapter.onPost('/users/login').reply(422, error);
 
       await tester.pumpWidget(widget);
-
-      final emailFinder = find.widgetWithText(TextField, Constants.EMAIL);
-      final passwordFinder = find.widgetWithText(TextField, Constants.PASSWORD);
-      final loginFinder = find.widgetWithText(ElevatedButton, Constants.LOGIN);
 
       // Submit form
       await tester.tap(loginFinder);

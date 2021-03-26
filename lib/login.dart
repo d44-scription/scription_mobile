@@ -5,6 +5,9 @@ import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/constants.dart' as Constants;
 
 class Login extends StatefulWidget {
+  Login({Key key, this.message}) : super(key: key);
+  final String message;
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -41,6 +44,19 @@ class _LoginState extends State<Login> {
         setState(() {
           _isLoginDisabled = false;
         });
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.message != null) {
+      new Future<Null>.delayed(Duration.zero, () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          new SnackBar(content: new Text(widget.message)),
+        );
       });
     }
   }
