@@ -34,7 +34,7 @@ class Http {
       return options;
     }, onError: (DioError error) async {
       // If request returns a 401 error, remove stored auth tokens
-      dio.interceptors.responseLock.lock();
+      dio.interceptors.errorLock.lock();
 
       if ([401, 404].contains(error.response.statusCode)) {
         _instance.aToken = '';
@@ -44,7 +44,7 @@ class Http {
             MaterialPageRoute(builder: (context) => Login()), (route) => false);
       }
 
-      dio.interceptors.requestLock.unlock();
+      dio.interceptors.errorLock.unlock();
     }));
   }
 }

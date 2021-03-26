@@ -4,6 +4,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:scription_mobile/http-common.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 // The application under test.
 import 'package:scription_mobile/main.dart' as app;
@@ -13,9 +14,10 @@ void main() {
   final _storage = new FlutterSecureStorage();
   DioAdapter dioAdapter;
 
-  final emailFinder = find.widgetWithText(TextField, 'Email Address');
-  final passwordFinder = find.widgetWithText(TextField, 'Password');
-  final loginFinder = find.widgetWithText(ElevatedButton, 'Login');
+  final emailFinder = find.widgetWithText(TextField, Constants.EMAIL);
+  final passwordFinder = find.widgetWithText(TextField, Constants.PASSWORD);
+  final loginFinder = find.widgetWithText(ElevatedButton, Constants.LOGIN);
+  final errorFinder = find.widgetWithText(SnackBar, 'Test Error Message');
 
   final notebookFinder = find.text('Test Notebook');
   final summaryFinder = find.text('Test Summary');
@@ -35,6 +37,8 @@ void main() {
       'summary': 'Test Summary',
     }
   ];
+
+  final error = {'errors': 'Test Error Message', 'statusCode': 422};
 
   setUpAll(() {
     // Set up mock dio adapter before all tests
@@ -68,50 +72,94 @@ void main() {
         expect(await _storage.read(key: 'aToken'), null);
       });
 
-      // FIXME: This breaks. Test this manually until a fix is found
-      //   testWidgets('storing login token when app is re-run',
-      //       (WidgetTester tester) async {
-      //     dioAdapter.onGet('/notebooks').reply(200, notebooks);
-      //     dioAdapter.onPost('/users/login').reply(200, {}, headers: {
-      //       'set-cookie': ['Mock Token']
-      //     });
+      testWidgets('successfully logs in after a failed attempt',
+          (WidgetTester tester) async {
+        app.main();
+        await tester.pumpAndSettle();
 
-      //     app.main();
-      //     await tester.pumpAndSettle();
+        // Confirm login page is rendered
+        expect(emailFinder, findsOneWidget);
+        expect(passwordFinder, findsOneWidget);
+        expect(loginFinder, findsOneWidget);
 
-      //     // Confirm login page is rendered
-      //     expect(emailFinder, findsOneWidget);
-      //     expect(passwordFinder, findsOneWidget);
-      //     expect(loginFinder, findsOneWidget);
+        // Confirm stored token is removed
+        expect(Http().aToken, '');
+        expect(await _storage.read(key: 'aToken'), null);
 
-      //     // Confirm notebooks page is not rendered
-      //     expect(notebookFinder, findsNWidgets(0));
-      //     expect(summaryFinder, findsNWidgets(0));
+        // Reject login
+        dioAdapter.onPost('/users/login').reply(422, error);
 
-      //     // Enter email and password
-      //     await tester.enterText(emailFinder, 'admin@example.com');
-      //     await tester.enterText(passwordFinder, 'superSecret123!');
+        // Enter email and password
+        await tester.enterText(emailFinder, 'admin@example.com');
+        await tester.enterText(passwordFinder, 'superSecret123!');
 
-      //     // Submit form
-      //     await tester.tap(loginFinder);
-      //     await tester.pump(Duration(seconds: 1));
+        // Submit form
+        await tester.tap(loginFinder);
+        await tester.pumpAndSettle();
 
-      //     // Confirm token is set
-      //     expect(await _storage.read(key: 'aToken'), 'Mock Token');
+        // Confirm error is shown
+        expect(errorFinder, findsOneWidget);
 
-      //     // Re-run app
-      //     app.main();
-      //     await tester.pumpAndSettle();
+        // Accept login
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+        dioAdapter.onPost('/users/login').reply(200, {}, headers: {
+          'set-cookie': ['Mock Token']
+        });
 
-      //     // Confirm notebooks page is rendered
-      //     expect(notebookFinder, findsOneWidget);
-      //     expect(summaryFinder, findsOneWidget);
+        // Submit form
+        await tester.tap(loginFinder);
+        await tester.pumpAndSettle();
 
-      //     // Confirm login page is not rendered
-      //     expect(emailFinder, findsNWidgets(0));
-      //     expect(passwordFinder, findsNWidgets(0));
-      //     expect(loginFinder, findsNWidgets(0));
-      //   });
+        // Confirm notebooks page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
+      });
+
+      testWidgets('storing login token when app is re-run',
+          (WidgetTester tester) async {
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+        dioAdapter.onPost('/users/login').reply(200, {}, headers: {
+          'set-cookie': ['Mock Token']
+        });
+
+        app.main();
+        await tester.pumpAndSettle();
+
+        // Confirm login page is rendered
+        expect(emailFinder, findsOneWidget);
+        expect(passwordFinder, findsOneWidget);
+        expect(loginFinder, findsOneWidget);
+
+        // Confirm notebooks page is not rendered
+        expect(notebookFinder, findsNWidgets(0));
+        expect(summaryFinder, findsNWidgets(0));
+
+        // Enter email and password
+        await tester.enterText(emailFinder, 'admin@example.com');
+        await tester.enterText(passwordFinder, 'superSecret123!');
+
+        // Submit form
+        await tester.tap(loginFinder);
+        await tester.pumpAndSettle();
+
+        // Confirm token is set
+        expect(await _storage.read(key: 'aToken'), 'Mock Token');
+
+        dioAdapter.onGet('/notebooks').reply(200, notebooks);
+
+        // Re-run app
+        app.main();
+        await tester.pumpAndSettle();
+
+        // Confirm notebooks page is rendered
+        expect(notebookFinder, findsOneWidget);
+        expect(summaryFinder, findsOneWidget);
+
+        // Confirm login page is not rendered
+        expect(emailFinder, findsNWidgets(0));
+        expect(passwordFinder, findsNWidgets(0));
+        expect(loginFinder, findsNWidgets(0));
+      });
     });
 
     group('with stored token', () {
