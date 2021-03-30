@@ -83,10 +83,10 @@ class _LoginState extends State<Login> {
                       autofillHints: [AutofillHints.email],
                       onEditingComplete: node.nextFocus,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           labelText: Constants.EMAIL,
                           icon:
-                              Icon(Icons.alternate_email, color: Colors.orange),
+                              Icon(Icons.alternate_email, color: Styles.orange()),
                           labelStyle: TextStyle(color: Colors.white60)),
                     ),
                     TextFormField(
@@ -99,9 +99,9 @@ class _LoginState extends State<Login> {
                         return value.isEmpty ? Constants.ENTER_PASSWORD : null;
                       },
                       onEditingComplete: _login,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           labelText: Constants.PASSWORD,
-                          icon: Icon(Icons.lock, color: Colors.orange),
+                          icon: Icon(Icons.lock, color: Styles.orange()),
                           labelStyle: TextStyle(color: Colors.white60)),
                     ),
                     Padding(

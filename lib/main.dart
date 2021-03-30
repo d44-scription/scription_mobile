@@ -3,6 +3,7 @@ import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/login.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
+import 'package:scription_mobile/styles.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: Http().navigatorKey,
       theme: ThemeData(
         // Default theme styles
-        primarySwatch: Colors.orange,
+        primaryColor: Styles.orange(),
         scaffoldBackgroundColor: Colors.grey[800],
         canvasColor: Colors.grey[800],
         textTheme: Theme.of(context)

@@ -25,11 +25,11 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
             DrawerHeader(
               child: Text(Constants.TITLE, style: Styles.darkHeader()),
               decoration: BoxDecoration(
-                color: Colors.orange,
+                color: Styles.orange(),
               ),
             ),
             ListTile(
-              leading: Icon(Icons.auto_stories, size: 36, color: Colors.orange),
+              leading: Icon(Icons.auto_stories, size: 36, color: Styles.orange()),
               title: Text('Notebooks', style: Styles.note()),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
@@ -39,7 +39,7 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout, size: 36, color: Colors.orange),
+              leading: Icon(Icons.logout, size: 36, color: Styles.orange()),
               title: Text(Constants.LOGOUT, style: Styles.note()),
               onTap: () {
                 AuthenticationService().logout();
