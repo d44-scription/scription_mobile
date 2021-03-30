@@ -29,7 +29,8 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.auto_stories, size: 36, color: Styles.orange()),
+              leading: Icon(Icons.auto_stories,
+                  size: 36, color: Styles.orangeAccent()),
               title: Text('Notebooks', style: Styles.note()),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
@@ -39,7 +40,8 @@ class _GlobalNavigationState extends State<GlobalNavigation> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout, size: 36, color: Styles.orange()),
+              leading:
+                  Icon(Icons.logout, size: 36, color: Styles.orangeAccent()),
               title: Text(Constants.LOGOUT, style: Styles.note()),
               onTap: () {
                 AuthenticationService().logout();

@@ -85,8 +85,8 @@ class _LoginState extends State<Login> {
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                           labelText: Constants.EMAIL,
-                          icon:
-                              Icon(Icons.alternate_email, color: Styles.orange()),
+                          icon: Icon(Icons.alternate_email,
+                              color: Styles.orangeAccent()),
                           labelStyle: TextStyle(color: Colors.white60)),
                     ),
                     TextFormField(
@@ -101,7 +101,7 @@ class _LoginState extends State<Login> {
                       onEditingComplete: _login,
                       decoration: InputDecoration(
                           labelText: Constants.PASSWORD,
-                          icon: Icon(Icons.lock, color: Styles.orange()),
+                          icon: Icon(Icons.lock, color: Styles.orangeAccent()),
                           labelStyle: TextStyle(color: Colors.white60)),
                     ),
                     Padding(
