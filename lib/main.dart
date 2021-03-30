@@ -3,6 +3,7 @@ import 'package:scription_mobile/http-common.dart';
 import 'package:scription_mobile/login.dart';
 import 'package:scription_mobile/notebooks/index.dart';
 import 'package:scription_mobile/services/authentication.service.dart';
+import 'package:scription_mobile/styles.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,13 +16,13 @@ class MyApp extends StatelessWidget {
       navigatorKey: Http().navigatorKey,
       theme: ThemeData(
         // Default theme styles
-        primarySwatch: Colors.orange,
-        scaffoldBackgroundColor: Colors.grey[800],
-        canvasColor: Colors.grey[800],
+        primarySwatch: Styles.orange(),
+        scaffoldBackgroundColor: Styles.grey(),
+        canvasColor: Styles.grey(),
         textTheme: Theme.of(context)
             .textTheme
             .apply(bodyColor: Colors.white, displayColor: Colors.white),
-        dividerColor: Colors.orangeAccent,
+        dividerColor: Styles.orangeAccent(),
         errorColor: Colors.red[200],
       ),
       home: FutureBuilder(
