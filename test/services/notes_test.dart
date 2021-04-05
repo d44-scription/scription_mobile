@@ -22,15 +22,28 @@ void main() async {
       Http().dio.httpClientAdapter = dioAdapter;
     });
 
-    test('index', () async {
-      // Data is returned correctly
-      dioAdapter
-          .onGet('/notebooks/$notebookId/notables/$notableId/notes')
-          .reply(200, notes);
+    group('index', () {
+      test('when given notable id', () async {
+        // Retrieves notes for given notable
+        dioAdapter
+            .onGet('/notebooks/$notebookId/notables/$notableId/notes')
+            .reply(200, notes);
 
-      final response = await NoteService().index(notebookId, notableId);
+        final response = await NoteService().index(notebookId, notableId);
 
-      expect(response, notes);
+        expect(response, notes);
+      });
+
+      test('when not given notable id', () async {
+        // Retrieves unlinked notes for given notebook
+        dioAdapter
+            .onGet('/notebooks/$notebookId/notes/unlinked')
+            .reply(200, notes);
+
+        final response = await NoteService().index(notebookId, null);
+
+        expect(response, notes);
+      });
     });
   });
 }
