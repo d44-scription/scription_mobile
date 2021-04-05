@@ -17,3 +17,6 @@ const String GET_STARTED = 'Visit the Scription web app to get started';
 const String LOGGED_OUT = 'Successfully logged out';
 const String UNAUTHORISED =
     'Your authentication token has expired; please sign in again';
+
+const String UNLINKED = 'Unlinked';
+const String RECENTS = 'Recently Accessed';
