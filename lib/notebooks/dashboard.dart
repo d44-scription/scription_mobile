@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scription_mobile/global-navigation.dart';
 import 'package:scription_mobile/models/notebook.dart';
+import 'package:scription_mobile/notes/index.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/index.dart';
 
@@ -69,6 +70,20 @@ class _DashboardState extends State<Dashboard> {
                         },
                         subtitle:
                             Text('View items for ${widget.notebook.name}')),
+                    ListTile(
+                        leading: Icon(Icons.description,
+                            size: 48, color: Styles.orangeAccent()),
+                        title: Text('Unlinked Notes'),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Notes(
+                                      notebookId: widget.notebook.id,
+                                      notableName: 'Unlinked')));
+                        },
+                        subtitle: Text(
+                            'View unlinked notes for ${widget.notebook.name}')),
                   ],
                 ))));
   }

@@ -40,6 +40,9 @@ void main() {
       expect(find.text('Locations'), findsOneWidget);
       expect(find.text('View locations for Notebook 1'), findsOneWidget);
 
+      expect(find.text('Unlinked Notes'), findsOneWidget);
+      expect(find.text('View unlinked notes for Notebook 1'), findsOneWidget);
+
       // Confirm second notebook is not shown
       expect(find.text('Notebook 2'), findsNWidgets(0));
       expect(find.text('Summary 2'), findsNWidgets(0));
@@ -69,6 +72,9 @@ void main() {
 
       expect(find.text('Locations'), findsOneWidget);
       expect(find.text('View locations for Notebook 2'), findsOneWidget);
+
+      expect(find.text('Unlinked Notes'), findsOneWidget);
+      expect(find.text('View unlinked notes for Notebook 2'), findsOneWidget);
 
       // Confirm first notebook is not shown
       expect(find.text('Notebook 1'), findsNWidgets(0));
