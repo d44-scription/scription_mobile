@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scription_mobile/services/notable.service.dart';
 import 'package:scription_mobile/notables/card.dart';
 import 'package:scription_mobile/index.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class Notables extends StatefulWidget {
   Notables({Key key, this.type, this.notebookId, this.notebookName})
@@ -16,7 +17,9 @@ class Notables extends StatefulWidget {
 
 class _NotablesState extends State<Notables> {
   Future<void> _callback() async {
-    return NotableService().index(widget.notebookId, widget.type);
+    return widget.type == Constants.RECENTS
+        ? NotableService().recents(widget.notebookId)
+        : NotableService().index(widget.notebookId, widget.type);
   }
 
   @override

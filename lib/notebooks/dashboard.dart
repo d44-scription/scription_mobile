@@ -29,7 +29,8 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.person,
                             size: 48, color: Styles.orangeAccent()),
-                        title: Text(Constants.CHARACTERS, style: Styles.subtitle()),
+                        title: Text(Constants.CHARACTERS,
+                            style: Styles.subtitle()),
                         onTap: () {
                           Navigator.push(
                               context,
@@ -44,7 +45,8 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.home,
                             size: 48, color: Styles.orangeAccent()),
-                        title: Text(Constants.LOCATIONS, style: Styles.subtitle()),
+                        title:
+                            Text(Constants.LOCATIONS, style: Styles.subtitle()),
                         onTap: () {
                           Navigator.push(
                               context,
@@ -85,9 +87,21 @@ class _DashboardState extends State<Dashboard> {
                         },
                         subtitle: Text(
                             'View unlinked notes for ${widget.notebook.name}')),
-                    Divider(),
-                    Text(Constants.RECENTS,
-                        style: Styles.title(), textAlign: TextAlign.center)
+                    ListTile(
+                        leading: Icon(Icons.history,
+                            size: 48, color: Styles.orangeAccent()),
+                        title: Text(Constants.RECENTLY_ACCESSED,
+                            style: Styles.subtitle()),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Notables(
+                                      type: Constants.RECENTS,
+                                      notebookId: widget.notebook.id,
+                                      notebookName: widget.notebook.name)));
+                        },
+                        subtitle: Text('Recently accessed notables')),
                   ],
                 ))));
   }
