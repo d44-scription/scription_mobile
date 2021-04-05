@@ -4,6 +4,7 @@ import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/notes/index.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/index.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.notebook}) : super(key: key);
@@ -28,13 +29,13 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.person,
                             size: 48, color: Styles.orangeAccent()),
-                        title: Text('Characters'),
+                        title: Text(Constants.CHARACTERS, style: Styles.subtitle()),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notables(
-                                      type: 'Characters',
+                                      type: Constants.CHARACTERS,
                                       notebookId: widget.notebook.id,
                                       notebookName: widget.notebook.name)));
                         },
@@ -43,13 +44,13 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.home,
                             size: 48, color: Styles.orangeAccent()),
-                        title: Text('Locations'),
+                        title: Text(Constants.LOCATIONS, style: Styles.subtitle()),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notables(
-                                      type: 'Locations',
+                                      type: Constants.LOCATIONS,
                                       notebookId: widget.notebook.id,
                                       notebookName: widget.notebook.name)));
                         },
@@ -58,13 +59,13 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.hardware,
                             size: 48, color: Styles.orangeAccent()),
-                        title: Text('Items'),
+                        title: Text(Constants.ITEMS, style: Styles.subtitle()),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notables(
-                                      type: 'Items',
+                                      type: Constants.ITEMS,
                                       notebookId: widget.notebook.id,
                                       notebookName: widget.notebook.name)));
                         },
@@ -73,17 +74,20 @@ class _DashboardState extends State<Dashboard> {
                     ListTile(
                         leading: Icon(Icons.description,
                             size: 48, color: Styles.orangeAccent()),
-                        title: Text('Unlinked Notes'),
+                        title: Text('Unlinked Notes', style: Styles.subtitle()),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Notes(
                                       notebookId: widget.notebook.id,
-                                      notableName: 'Unlinked')));
+                                      notableName: Constants.UNLINKED)));
                         },
                         subtitle: Text(
                             'View unlinked notes for ${widget.notebook.name}')),
+                    Divider(),
+                    Text(Constants.RECENTS,
+                        style: Styles.title(), textAlign: TextAlign.center)
                   ],
                 ))));
   }

@@ -4,6 +4,10 @@ const String VISIT_WEB_APP =
 
 const String TITLE = 'Scription';
 
+const String ITEMS = 'Items';
+const String CHARACTERS = 'Characters';
+const String LOCATIONS = 'Locations';
+
 const String EMAIL = 'Email Address';
 const String ENTER_EMAIL = 'Please enter an email';
 const String PASSWORD = 'Password';
