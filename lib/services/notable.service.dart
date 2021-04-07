@@ -8,4 +8,12 @@ class NotableService {
 
     return response.data;
   }
+
+  // GET notables recents
+  Future recents(int notebookId) async {
+    final response =
+        await Http().dio.get('/notebooks/$notebookId/notables/recents');
+
+    return response.data;
+  }
 }

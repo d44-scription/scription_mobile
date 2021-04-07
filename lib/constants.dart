@@ -4,6 +4,12 @@ const String VISIT_WEB_APP =
 
 const String TITLE = 'Scription';
 
+const String ITEMS = 'Items';
+const String CHARACTERS = 'Characters';
+const String LOCATIONS = 'Locations';
+const String RECENTS = 'Recents';
+const String UNLINKED = 'Unlinked';
+
 const String EMAIL = 'Email Address';
 const String ENTER_EMAIL = 'Please enter an email';
 const String PASSWORD = 'Password';
@@ -17,3 +23,7 @@ const String GET_STARTED = 'Visit the Scription web app to get started';
 const String LOGGED_OUT = 'Successfully logged out';
 const String UNAUTHORISED =
     'Your authentication token has expired; please sign in again';
+
+const String UNLINKED_NOTES = 'Unlinked Notes';
+const String RECENTLY_ACCESSED = 'Recently Accessed';
+const String RECENTLY_ACCESSED_NOTABLES = 'Recently accessed notables';

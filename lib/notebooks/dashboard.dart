@@ -4,6 +4,8 @@ import 'package:scription_mobile/models/notebook.dart';
 import 'package:scription_mobile/notes/index.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/index.dart';
+import 'package:scription_mobile/constants.dart' as Constants;
+import 'package:scription_mobile/notebooks/dashboard-tile.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.notebook}) : super(key: key);
@@ -25,65 +27,56 @@ class _DashboardState extends State<Dashboard> {
                 child: Column(
                   children: [
                     Text(widget.notebook.summary ?? '', style: Styles.body()),
-                    ListTile(
-                        leading: Icon(Icons.person,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text('Characters'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: 'Characters',
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
-                        subtitle: Text(
-                            'View characters for ${widget.notebook.name}')),
-                    ListTile(
-                        leading: Icon(Icons.home,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text('Locations'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: 'Locations',
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
+                    DashboardTile(
+                        icon: Icons.person,
+                        title: Constants.CHARACTERS,
+                        subtitle: 'View characters for ${widget.notebook.name}',
+                        display: () {
+                          return Notables(
+                              type: Constants.CHARACTERS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
+                    DashboardTile(
+                        icon: Icons.home,
+                        title: Constants.LOCATIONS,
+                        subtitle: 'View locations for ${widget.notebook.name}',
+                        display: () {
+                          return Notables(
+                              type: Constants.LOCATIONS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
+                    DashboardTile(
+                        icon: Icons.hardware,
+                        title: Constants.ITEMS,
+                        subtitle: 'View items for ${widget.notebook.name}',
+                        display: () {
+                          return Notables(
+                              type: Constants.ITEMS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
+                    DashboardTile(
+                        icon: Icons.description,
+                        title: Constants.UNLINKED_NOTES,
                         subtitle:
-                            Text('View locations for ${widget.notebook.name}')),
-                    ListTile(
-                        leading: Icon(Icons.hardware,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text('Items'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: 'Items',
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
-                        subtitle:
-                            Text('View items for ${widget.notebook.name}')),
-                    ListTile(
-                        leading: Icon(Icons.description,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text('Unlinked Notes'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notes(
-                                      notebookId: widget.notebook.id,
-                                      notableName: 'Unlinked')));
-                        },
-                        subtitle: Text(
-                            'View unlinked notes for ${widget.notebook.name}')),
+                            'View unlinked notes for ${widget.notebook.name}',
+                        display: () {
+                          return Notes(
+                              notebookId: widget.notebook.id,
+                              notableName: Constants.UNLINKED);
+                        }),
+                    DashboardTile(
+                        icon: Icons.history,
+                        title: Constants.RECENTLY_ACCESSED,
+                        subtitle: Constants.RECENTLY_ACCESSED_NOTABLES,
+                        display: () {
+                          return Notables(
+                              type: Constants.RECENTS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
                   ],
                 ))));
   }
