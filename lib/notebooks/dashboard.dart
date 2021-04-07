@@ -5,6 +5,7 @@ import 'package:scription_mobile/notes/index.dart';
 import 'package:scription_mobile/styles.dart';
 import 'package:scription_mobile/notables/index.dart';
 import 'package:scription_mobile/constants.dart' as Constants;
+import 'package:scription_mobile/notebooks/dashboard-tile.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.notebook}) : super(key: key);
@@ -26,22 +27,16 @@ class _DashboardState extends State<Dashboard> {
                 child: Column(
                   children: [
                     Text(widget.notebook.summary ?? '', style: Styles.body()),
-                    ListTile(
-                        leading: Icon(Icons.person,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text(Constants.CHARACTERS,
-                            style: Styles.subtitle()),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: Constants.CHARACTERS,
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
-                        subtitle: Text(
-                            'View characters for ${widget.notebook.name}')),
+                    DashboardTile(
+                        icon: Icons.person,
+                        title: Constants.CHARACTERS,
+                        subtitle: 'View characters for ${widget.notebook.name}',
+                        display: () {
+                          return Notables(
+                              type: Constants.CHARACTERS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
                     ListTile(
                         leading: Icon(Icons.home,
                             size: 48, color: Styles.orangeAccent()),
