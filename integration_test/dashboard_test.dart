@@ -144,7 +144,6 @@ void main() {
       expect(find.text('$notableName | Notes'), findsOneWidget);
 
       // View first note
-      dioAdapter.onGet('/notebooks/1/notables/2/notes/3').reply(200, notes[0]);
       await tester.tap(noteContentFinder);
       await tester.pumpAndSettle();
 
@@ -178,7 +177,6 @@ void main() {
       expect(find.text('$notableName | Notes'), findsOneWidget);
 
       // View first note
-      dioAdapter.onGet('/notebooks/1/notables/2/notes/3').reply(200, notes[0]);
       await tester.tap(noteContentFinder);
       await tester.pumpAndSettle();
 
@@ -212,7 +210,6 @@ void main() {
       expect(find.text('$notableName | Notes'), findsOneWidget);
 
       // View first note
-      dioAdapter.onGet('/notebooks/1/notables/2/notes/3').reply(200, notes[0]);
       await tester.tap(noteContentFinder);
       await tester.pumpAndSettle();
 
@@ -220,8 +217,29 @@ void main() {
       expect(find.text('Note'), findsOneWidget);
     });
 
-    // View unlinked notes list
-    // View first note
+    testWidgets('viewing unlinked notes', (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // View notebook dashboard page
+      await tester.tap(notebookNameFinder);
+      await tester.pumpAndSettle();
+
+      // View unlinked notes list
+      dioAdapter.onGet('/notebooks/1/notes/unlinked').reply(200, notes);
+      await tester.tap(unlinkedFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('${Constants.UNLINKED} | Notes'), findsOneWidget);
+
+      // View first note
+      await tester.tap(noteContentFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('Note'), findsOneWidget);
+    });
 
     // View recently accessed notables
     // View first notable notes
