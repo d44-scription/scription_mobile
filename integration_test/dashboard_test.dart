@@ -132,7 +132,8 @@ void main() {
 
       expect(notableNameFinder, findsOneWidget);
       expect(notableDescriptionFinder, findsOneWidget);
-      expect(find.text('$notebookName | ${Constants.CHARACTERS}'), findsOneWidget);
+      expect(
+          find.text('$notebookName | ${Constants.CHARACTERS}'), findsOneWidget);
 
       // View first character notes
       dioAdapter.onGet('/notebooks/1/notables/2/notes').reply(200, notes);
@@ -151,13 +152,73 @@ void main() {
       expect(find.text('Note'), findsOneWidget);
     });
 
-    // View items list
-    // View first item notes
-    // View first note
+    testWidgets('viewing items', (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
 
-    // View locations list
-    // View first location notes
-    // View first note
+      // View notebook dashboard page
+      await tester.tap(notebookNameFinder);
+      await tester.pumpAndSettle();
+
+      // View items list
+      dioAdapter.onGet('/notebooks/1/items').reply(200, notables);
+      await tester.tap(itemsFinder);
+      await tester.pumpAndSettle();
+
+      expect(notableNameFinder, findsOneWidget);
+      expect(notableDescriptionFinder, findsOneWidget);
+      expect(find.text('$notebookName | ${Constants.ITEMS}'), findsOneWidget);
+
+      // View first item notes
+      dioAdapter.onGet('/notebooks/1/notables/2/notes').reply(200, notes);
+      await tester.tap(notableNameFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('$notableName | Notes'), findsOneWidget);
+
+      // View first note
+      dioAdapter.onGet('/notebooks/1/notables/2/notes/3').reply(200, notes[0]);
+      await tester.tap(noteContentFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('Note'), findsOneWidget);
+    });
+
+    testWidgets('viewing locations', (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // View notebook dashboard page
+      await tester.tap(notebookNameFinder);
+      await tester.pumpAndSettle();
+
+      // View locations list
+      dioAdapter.onGet('/notebooks/1/locations').reply(200, notables);
+      await tester.tap(locationsFinder);
+      await tester.pumpAndSettle();
+
+      expect(notableNameFinder, findsOneWidget);
+      expect(notableDescriptionFinder, findsOneWidget);
+      expect(find.text('$notebookName | ${Constants.LOCATIONS}'), findsOneWidget);
+
+      // View first location notes
+      dioAdapter.onGet('/notebooks/1/notables/2/notes').reply(200, notes);
+      await tester.tap(notableNameFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('$notableName | Notes'), findsOneWidget);
+
+      // View first note
+      dioAdapter.onGet('/notebooks/1/notables/2/notes/3').reply(200, notes[0]);
+      await tester.tap(noteContentFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('Note'), findsOneWidget);
+    });
 
     // View unlinked notes list
     // View first note
