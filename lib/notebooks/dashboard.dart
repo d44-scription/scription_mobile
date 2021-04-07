@@ -70,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
                     DashboardTile(
                         icon: Icons.history,
                         title: Constants.RECENTLY_ACCESSED,
-                        subtitle: 'Recently accessed notables',
+                        subtitle: Constants.RECENTLY_ACCESSED_NOTABLES,
                         display: () {
                           return Notables(
                               type: Constants.RECENTS,
