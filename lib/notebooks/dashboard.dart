@@ -37,66 +37,46 @@ class _DashboardState extends State<Dashboard> {
                               notebookId: widget.notebook.id,
                               notebookName: widget.notebook.name);
                         }),
-                    ListTile(
-                        leading: Icon(Icons.home,
-                            size: 48, color: Styles.orangeAccent()),
-                        title:
-                            Text(Constants.LOCATIONS, style: Styles.subtitle()),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: Constants.LOCATIONS,
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
+                    DashboardTile(
+                        icon: Icons.home,
+                        title: Constants.LOCATIONS,
+                        subtitle: 'View locations for ${widget.notebook.name}',
+                        display: () {
+                          return Notables(
+                              type: Constants.LOCATIONS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
+                    DashboardTile(
+                        icon: Icons.hardware,
+                        title: Constants.ITEMS,
+                        subtitle: 'View items for ${widget.notebook.name}',
+                        display: () {
+                          return Notables(
+                              type: Constants.ITEMS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
+                    DashboardTile(
+                        icon: Icons.description,
+                        title: Constants.UNLINKED_NOTES,
                         subtitle:
-                            Text('View locations for ${widget.notebook.name}')),
-                    ListTile(
-                        leading: Icon(Icons.hardware,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text(Constants.ITEMS, style: Styles.subtitle()),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: Constants.ITEMS,
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
-                        subtitle:
-                            Text('View items for ${widget.notebook.name}')),
-                    ListTile(
-                        leading: Icon(Icons.description,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text('Unlinked Notes', style: Styles.subtitle()),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notes(
-                                      notebookId: widget.notebook.id,
-                                      notableName: Constants.UNLINKED)));
-                        },
-                        subtitle: Text(
-                            'View unlinked notes for ${widget.notebook.name}')),
-                    ListTile(
-                        leading: Icon(Icons.history,
-                            size: 48, color: Styles.orangeAccent()),
-                        title: Text(Constants.RECENTLY_ACCESSED,
-                            style: Styles.subtitle()),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notables(
-                                      type: Constants.RECENTS,
-                                      notebookId: widget.notebook.id,
-                                      notebookName: widget.notebook.name)));
-                        },
-                        subtitle: Text('Recently accessed notables')),
+                            'View unlinked notes for ${widget.notebook.name}',
+                        display: () {
+                          return Notes(
+                              notebookId: widget.notebook.id,
+                              notableName: Constants.UNLINKED);
+                        }),
+                    DashboardTile(
+                        icon: Icons.history,
+                        title: Constants.RECENTLY_ACCESSED,
+                        subtitle: 'Recently accessed notables',
+                        display: () {
+                          return Notables(
+                              type: Constants.RECENTS,
+                              notebookId: widget.notebook.id,
+                              notebookName: widget.notebook.name);
+                        }),
                   ],
                 ))));
   }

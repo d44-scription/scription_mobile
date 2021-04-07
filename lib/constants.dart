@@ -24,4 +24,5 @@ const String UNAUTHORISED =
     'Your authentication token has expired; please sign in again';
 
 const String UNLINKED = 'Unlinked';
+const String UNLINKED_NOTES = 'Unlinked Notes';
 const String RECENTLY_ACCESSED = 'Recently Accessed';
