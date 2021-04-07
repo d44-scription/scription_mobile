@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -241,8 +240,37 @@ void main() {
       expect(find.text('Note'), findsOneWidget);
     });
 
-    // View recently accessed notables
-    // View first notable notes
-    // View first note
+    testWidgets('viewing recents', (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // View notebook dashboard page
+      await tester.tap(notebookNameFinder);
+      await tester.pumpAndSettle();
+
+      // View notables list
+      dioAdapter.onGet('/notebooks/1/notables/recents').reply(200, notables);
+      await tester.tap(recentsFinder);
+      await tester.pumpAndSettle();
+
+      expect(notableNameFinder, findsOneWidget);
+      expect(notableDescriptionFinder, findsOneWidget);
+      expect(find.text('$notebookName | ${Constants.RECENTS}'), findsOneWidget);
+
+      // View first location notes
+      dioAdapter.onGet('/notebooks/1/notables/2/notes').reply(200, notes);
+      await tester.tap(notableNameFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('$notableName | Notes'), findsOneWidget);
+
+      // View first note
+      await tester.tap(noteContentFinder);
+      await tester.pumpAndSettle();
+
+      expect(noteContentFinder, findsOneWidget);
+      expect(find.text('Note'), findsOneWidget);
+    });
   });
 }

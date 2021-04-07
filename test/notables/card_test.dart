@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:scription_mobile/models/notable.dart';
 import 'package:scription_mobile/notables/card.dart';
 import 'package:flutter/material.dart';
 
