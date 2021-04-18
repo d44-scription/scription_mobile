@@ -16,11 +16,14 @@ class _ShowState extends State<Show> {
   @override
   Widget build(BuildContext context) {
     return GlobalNavigation(
-      title: 'Note',
-      body: Padding(
-          padding: EdgeInsets.all(24),
-          child: Text(TextHelper.trimMentions(widget.note.content),
-              style: Styles.note())),
-    );
+        title: 'Note',
+        body: ListView(
+          children: [
+            Padding(
+                padding: EdgeInsets.all(24),
+                child: Text(TextHelper.trimMentions(widget.note.content),
+                    style: Styles.note()))
+          ],
+        ));
   }
 }
