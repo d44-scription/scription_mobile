@@ -24,7 +24,7 @@ class _DashboardState extends State<Dashboard> {
         body: Center(
             child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Column(
+                child: ListView(
                   children: [
                     Text(widget.notebook.summary ?? '', style: Styles.body()),
                     DashboardTile(
