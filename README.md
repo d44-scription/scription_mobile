@@ -28,7 +28,7 @@ The commands listed above can then be used to reload the app when changes are ma
 
 ## API Connections
 
-The app connects by default to a local API running on port 3000, as set by the `scription-api` Docker config.
+By default, this application connects to the Staging server to remove the reliance on the local API running. This server has an account with the same credentials as seeded, `admin@example.com` and `superSecret123!`. This account is **insecure** and should be treated as such.
 
 API connections are made in the app using the [dio](https://pub.dev/packages/dio) package, and are stubbed in tests using the [http_mock_adapter](https://pub.dev/packages/http_mock_adapter) package.
 
