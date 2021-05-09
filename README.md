@@ -1,14 +1,12 @@
-# COMP3000-scription-mobile
+# Scription Mobile Application
 
-Mobile frontend for the Scription app
-
-## Getting Started
+## Foreword
 
 Running this project locally will require the Flutter SDK to be installed, and a valid device or emulator connected to run it on.
 
 Information on how to achieve this can be found [here](https://flutter.dev/docs/get-started).
 
-## Running locally
+## Running Locally
 
 With a device connected and the flutter SDK installed, running the app is as simple as:
 
@@ -30,11 +28,15 @@ The commands listed above can then be used to reload the app when changes are ma
 
 ## API Connections
 
-By default, the app connects to the *Staging* API, to remove the dependency on running the API locally.
+The app connects by default to a local API running on port 3000, as set by the `scription-api` Docker config.
 
 API connections are made in the app using the [dio](https://pub.dev/packages/dio) package, and are stubbed in tests using the [http_mock_adapter](https://pub.dev/packages/http_mock_adapter) package.
 
-## Testing
+## Linting Code
+
+The `Dart` VSCode extension has been used to apply a standardised format to all dart code in the application.
+
+## Running Tests
 
 Adding new tests requires the document to be added under the `tests/` directory *and* to have the `_test.dart` prefix.
 
